@@ -1,4 +1,4 @@
-interface DropDownnOptions {
+interface DropDownOption {
     label: string;
     value: string;
 }
@@ -7,8 +7,8 @@ interface DropDownProps {
     label: string;
     name: string;
     value: string;
-    options: DropDownnOptions[];
-    onChange: React.ChangeEventHandler<HTMLInputElement>;
+    options: DropDownOption[];
+    onChange: React.ChangeEventHandler<HTMLSelectElement>;
 }
 
 export function MainDropDown({
@@ -20,26 +20,29 @@ export function MainDropDown({
 }: DropDownProps) {
     return (
         <div>
-            <p className="mb-2 text-sm font-medium">{label}</p>
+            <label
+                htmlFor={name}
+                className="mb-1 block text-sm font-medium"
+            >
+                {label}
+            </label>
 
-            <div className="flex gap-6">
+            <select
+                id={name}
+                name={name}
+                value={value}
+                onChange={onChange}
+                className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+            >
                 {options.map((option) => (
-                    <label
+                    <option
                         key={option.value}
-                        className="flex cursor-pointer items-center gap-2"
+                        value={option.value}
                     >
-                        <input
-                            type=""
-                            name={name}
-                            value={option.value}
-                            checked={value === option.value}
-                            onChange={onChange}
-                        />
-
-                        <span>{option.label}</span>
-                    </label>
+                        {option.label}
+                    </option>
                 ))}
-            </div>
+            </select>
         </div>
     );
 }

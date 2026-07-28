@@ -4,6 +4,7 @@ import { mockTickets } from "../mocks/mockTicket";
 import { useNavigate } from "react-router-dom";
 import { MainInput } from "../../../shared/components/inputs/MainInput";
 import { useState } from "react";
+import { MainDropDown } from "../../../shared/components/inputs/MainDropDown";
 
 export function TicketListPage() {
     const navigate = useNavigate();
@@ -13,9 +14,16 @@ export function TicketListPage() {
         status: "",
     });
 
-    const itensFiltrados = mockTickets.filter(item =>
-        item.title.toLowerCase().includes(filters.title.toLowerCase())
-    );
+    const itensFiltrados = mockTickets.filter((item) => {
+        const matchesTitle = item.title
+            .toLowerCase()
+            .includes(filters.title.toLowerCase());
+
+        const matchesStatus =
+            filters.status === "" || item.status === filters.status;
+
+        return matchesTitle && matchesStatus;
+    });
 
     function goToNewTicket() {
         return navigate("/tickets/new");
@@ -35,7 +43,25 @@ export function TicketListPage() {
 
             </div>
 
-            <div className="w-100 mb-6">
+            <div className="flex items-center gap-4 w-100 mb-6">
+                <MainDropDown
+                    label=""
+                    name="status"
+                    value={filters.status}
+                    onChange={(e) =>
+                        setFilters((prev) => ({
+                            ...prev,
+                            status: e.target.value,
+                        }))
+                    }
+                    options={[
+                        { label: "Todos", value: "" },
+                        { label: "Aberto", value: "aberto" },
+                        { label: "Em andamento", value: "em_andamento" },
+                        { label: "Resolvido", value: "resolvido" },
+                    ]}
+                />
+
                 <MainInput
                     label=""
                     name="title"

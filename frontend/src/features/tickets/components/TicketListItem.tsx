@@ -2,20 +2,10 @@ import { FaCircle } from "react-icons/fa";
 import { capitalizeFirstLetter } from "../../../shared/utils/StringUtils";
 import type { Ticket } from "../types/ticket";
 import { useNavigate } from "react-router-dom";
+import { returnPriorityColor } from "../utils/PriorityUtils";
 
 interface Props {
     ticket: Ticket;
-}
-
-function returnPriorityColor(priority: string) {
-    switch (priority) {
-        case "alta":
-            return "red";
-        case "media":
-            return "orange";
-        case "baixa":
-            return "cyan";
-    }
 }
 
 export function TicketListItem({ ticket }: Props) {
