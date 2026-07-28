@@ -11,7 +11,7 @@ interface RadioGroupProps {
     onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export function RadioGroup({
+export function MainRadioGroup({
     label,
     name,
     value,

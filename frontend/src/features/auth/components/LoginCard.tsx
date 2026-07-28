@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { loginSchema } from "../schemas/LoginSchema";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MainButton } from "../../../shared/components/MainButton";
-import { MainInput } from "../../../shared/components/MainInput";
+import { MainInput } from "../../../shared/components/inputs/MainInput";
 
 
 export function LoginCard() {

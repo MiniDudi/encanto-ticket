@@ -1,11 +1,14 @@
 import { useFormik } from "formik"
-import { MainInput } from "../../../shared/components/MainInput";
-import { NavLink } from "react-router-dom";
+import { MainInput } from "../../../shared/components/inputs/MainInput";
+import { NavLink, useParams } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaExclamation } from "react-icons/fa";
-import { RadioGroup } from "../../../shared/components/RadioGroup";
+import { MainRadioGroup } from "../../../shared/components/inputs/MainRadioGroup";
 import { MainButton } from "../../../shared/components/MainButton";
+import { MainTextArea } from "../../../shared/components/inputs/MainTextArea";
 
 export function TicketFormPage() {
+    const { id } = useParams();
+
     const formik = useFormik({
         validationSchema: null,
         initialValues: {
@@ -15,9 +18,15 @@ export function TicketFormPage() {
             priority: "baixa",
         },
         onSubmit: (values) => {
-            console.log(values);
+            if (isEditing) {
+                console.log("Atualizando ticket", id, values);
+            } else {
+                console.log("Criando ticket", values);
+            }
         }
     })
+
+    const isEditing = !!id;
 
     return (
         <main className="min-h-screen bg-gray-100 p-8">
@@ -30,7 +39,7 @@ export function TicketFormPage() {
             </div>
 
             <h1 className="mb-8 text-start text-3xl font-bold">
-                Novo ticket
+                {isEditing ? "Editar Ticket" : "Novo Ticket"}
             </h1>
 
             <form onSubmit={formik.handleSubmit}>
@@ -52,10 +61,10 @@ export function TicketFormPage() {
                 </div>
 
                 <div className="mb-6 w-200">
-                    <MainInput
+                    <MainTextArea
                         label="Descrição"
                         name="description"
-                        placeholder="Descreva sobre o problema em detalhes"
+                        placeholder="Descreva o problema"
                         value={formik.values.description}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -69,7 +78,7 @@ export function TicketFormPage() {
                 </div>
 
                 <div className="mb-6">
-                    <RadioGroup
+                    <MainRadioGroup
                         label="Prioridade"
                         name="priority"
                         value={formik.values.priority}
@@ -85,7 +94,7 @@ export function TicketFormPage() {
                 <div className="mb-6">
                     <p className="flex mb-3 items-center gap-2">
                         <FaExclamation />
-                        Ao Salvar, o status do ticket será automaticamente definido como 
+                        Ao Salvar, o status do ticket será automaticamente definido como
                         <div className="flex items-center w-30 h-10 rounded-xl justify-center bg-cyan-100 shadow-lg">
                             <p>"Aberto"</p>
                         </div>
@@ -96,11 +105,28 @@ export function TicketFormPage() {
                     </p>
                 </div>
 
-                <div className="w-200">
-                    <MainButton buttonText="Enviar Ticket"></MainButton>
-                </div>
-
+                {isEditing ? (
+                    <div className="w-200">
+                        <MainButton buttonText="Editar informações" buttonColor="bg-green-600" hoverColor="hover:bg-green-700"></MainButton>
+                    </div>
+                ) : (
+                    <div className="w-200">
+                        <MainButton buttonText="Enviar Ticket"></MainButton>
+                    </div>
+                )
+                }
             </form>
+
+            {isEditing && (
+                <div className="w-200 mt-6">
+                    <MainButton
+                        buttonText="Excluir Ticket"
+                        buttonColor="bg-red-600"
+                        hoverColor="hover:bg-red-700"
+                    />
+                </div>
+            )}
+
         </main>
     )
 }

@@ -11,10 +11,10 @@ export function AppRoutes() {
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
       <Route path="/tickets" element={<TicketListPage />} />
       <Route path="/tickets/new" element={<TicketFormPage />} />
-
-      <Route path="/ticket/:id/" element={<TicketDetailPage />} />
+      <Route path="/ticket/:id/detail" element={<TicketDetailPage />} />
       <Route path="/ticket/:id/edit" element={<TicketFormPage />} />
     </Routes>
   );

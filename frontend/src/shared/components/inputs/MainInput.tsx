@@ -3,9 +3,9 @@ interface MainInputProps {
     name: string;
     type?: string;
     placeholder?: string;
-    value: string;
-    onChange: React.ChangeEventHandler<HTMLInputElement>;
-    onBlur: React.FocusEventHandler<HTMLInputElement>;
+    value?: string;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
 
 export function MainInput({
