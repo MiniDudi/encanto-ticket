@@ -1,14 +1,19 @@
-import { useFormik } from "formik";
-import { loginSchema } from "../schemas/LoginSchema";
+import { FaArrowLeft } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
+import { registerSchema } from "../schemas/RegisterSchema";
+import { useFormik } from "formik";
 
-export function LoginCard() {
+
+export function RegisterCard() {
+
     const formik = useFormik({
-        validationSchema: loginSchema,
+        validationSchema: registerSchema,
         initialValues: {
+            name: "",
             email: "",
             password: "",
+            repeatPassword: "",
         },
         onSubmit: (values) => {
             console.log(values);
@@ -17,15 +22,43 @@ export function LoginCard() {
 
     return (
         <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+
+            <div>
+                <NavLink className="flex font-semibold items-center gap-2 text-center " rel="stylesheet" to="/">
+                    <FaArrowLeft />
+                    Voltar
+                </NavLink>
+            </div>
+
             <h1 className="mb-2 text-center text-3xl font-bold">
-                Login
+                Registro
             </h1>
 
             <p className="mb-6 text-center text-gray-500">
-                Entre para acessar seus tickets
+                Crie sua conta no formulário abaixo
             </p>
 
-            <form onSubmit={formik.handleSubmit} className="space-y-4">
+            <form className="space-y-4">
+                <div>
+                    <label className="mb-1 block text-sm font-medium">
+                        Name
+                    </label>
+
+                    <input
+                        type="name"
+                        name="name"
+                        placeholder="Digite seu nome"
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                    />
+                    {formik.touched.name && formik.errors.name && (
+                        <p className="mt-1 text-sm text-red-500">
+                            {formik.errors.name}
+                        </p>
+                    )}
+                </div>
 
                 <div>
                     <label className="mb-1 block text-sm font-medium">
@@ -41,7 +74,6 @@ export function LoginCard() {
                         onBlur={formik.handleBlur}
                         className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
                     />
-
                     {formik.touched.email && formik.errors.email && (
                         <p className="mt-1 text-sm text-red-500">
                             {formik.errors.email}
@@ -63,7 +95,6 @@ export function LoginCard() {
                         onBlur={formik.handleBlur}
                         className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
                     />
-
                     {formik.touched.password && formik.errors.password && (
                         <p className="mt-1 text-sm text-red-500">
                             {formik.errors.password}
@@ -72,18 +103,29 @@ export function LoginCard() {
                 </div>
 
                 <div>
-                    <p className="text-xs text-gray-600">
-                        Não possui uma conta?
-                        <NavLink className="font-semibold text-blue-600 hover:underline" rel="stylesheet" to="/register">
-                            Clique Aqui!
-                        </NavLink>
-                    </p>
+                    <label className="mb-1 block text-sm font-medium">
+                        Repetir senha
+                    </label>
+
+                    <input
+                        type="password"
+                        name="repeatPassword"
+                        placeholder="Digite novamente sua senha"
+                        value={formik.values.repeatPassword}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                    />
+                    {formik.touched.repeatPassword && formik.errors.repeatPassword && (
+                        <p className="mt-1 text-sm text-red-500">
+                            {formik.errors.repeatPassword}
+                        </p>
+                    )}
                 </div>
 
                 <button className="w-full rounded-lg bg-blue-600 p-3 text-white transition hover:bg-blue-700">
-                    Entrar
+                    Criar conta
                 </button>
-
             </form>
         </div>
     );
