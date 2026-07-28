@@ -1,9 +1,13 @@
 import { useFormik } from "formik";
 import { loginSchema } from "../schemas/LoginSchema";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { MainButton } from "../../../shared/components/MainButton";
+import { MainInput } from "../../../shared/components/MainInput";
 
 
 export function LoginCard() {
+    const navigate = useNavigate();
+
     const formik = useFormik({
         validationSchema: loginSchema,
         initialValues: {
@@ -11,7 +15,7 @@ export function LoginCard() {
             password: "",
         },
         onSubmit: (values) => {
-            console.log(values);
+            navigate("/tickets", { state: { formData: values } });
         },
     });
 
@@ -28,18 +32,13 @@ export function LoginCard() {
             <form onSubmit={formik.handleSubmit} className="space-y-4">
 
                 <div>
-                    <label className="mb-1 block text-sm font-medium">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
+                    <MainInput
+                        label="Email"
                         name="email"
                         placeholder="Digite seu email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
                     />
 
                     {formik.touched.email && formik.errors.email && (
@@ -50,18 +49,13 @@ export function LoginCard() {
                 </div>
 
                 <div>
-                    <label className="mb-1 block text-sm font-medium">
-                        Senha
-                    </label>
-
-                    <input
-                        type="password"
+                    <MainInput
+                        label="Senha"
                         name="password"
-                        placeholder="Digite sua senha"
+                        placeholder="Digite seu password"
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
                     />
 
                     {formik.touched.password && formik.errors.password && (
@@ -80,9 +74,7 @@ export function LoginCard() {
                     </p>
                 </div>
 
-                <button className="w-full rounded-lg bg-blue-600 p-3 text-white transition hover:bg-blue-700">
-                    Entrar
-                </button>
+                <MainButton buttonText="Entrar"></MainButton>
 
             </form>
         </div>

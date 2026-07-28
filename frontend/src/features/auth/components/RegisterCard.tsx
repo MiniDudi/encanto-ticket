@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import { registerSchema } from "../schemas/RegisterSchema";
 import { useFormik } from "formik";
+import { MainButton } from "../../../shared/components/MainButton";
 
 
 export function RegisterCard() {
@@ -123,9 +124,8 @@ export function RegisterCard() {
                     )}
                 </div>
 
-                <button className="w-full rounded-lg bg-blue-600 p-3 text-white transition hover:bg-blue-700">
-                    Criar conta
-                </button>
+                <MainButton buttonText="Criar conta"></MainButton>
+                
             </form>
         </div>
     );
