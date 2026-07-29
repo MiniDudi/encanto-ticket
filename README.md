@@ -12,7 +12,7 @@ Eduardo Henrique Natividade Pinese
 - [x] Tailwind CSS
 - [x] Formik - Gerenciamento e controle de formulários. Login / Registro / New Ticket / Edit Ticket
 - [x] Yup - Validação de dados dos formulários. 
-- [] Axios - Consumo e integração com APIs REST desenvolvido com Nestjs.
+- [x] Axios - Consumo e integração com APIs REST desenvolvido com Nestjs.
 - [x] React Router - Navegação entre páginas da aplicação.
 
 ### Backend
