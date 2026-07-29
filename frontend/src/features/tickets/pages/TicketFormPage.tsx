@@ -112,7 +112,7 @@ export function TicketFormPage() {
                 </div>
 
                 <div className="mb-6 w-200">
-                    <MainInput
+                    <MainTextArea
                         label="Descrição"
                         name="description"
                         placeholder="Descreva o problema"
