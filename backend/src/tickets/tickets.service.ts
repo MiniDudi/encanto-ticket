@@ -12,6 +12,12 @@ import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class TicketsService {
+    async findOne(id: number) {
+        return this.ticketsRepository.findOne({
+            where: { id },
+            relations: ['user'],
+        });
+    }
     constructor(
         @InjectRepository(Ticket)
         private readonly ticketsRepository: Repository<Ticket>,
