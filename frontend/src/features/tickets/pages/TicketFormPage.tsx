@@ -1,7 +1,7 @@
 import { useFormik } from "formik"
 import { MainInput } from "../../../shared/components/inputs/MainInput";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { FaArrowLeft, FaArrowRight, FaExclamation } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaExclamation, FaStar } from "react-icons/fa";
 import { MainRadioGroup } from "../../../shared/components/inputs/MainRadioGroup";
 import { MainButton } from "../../../shared/components/MainButton";
 import { MainTextArea } from "../../../shared/components/inputs/MainTextArea";
@@ -11,15 +11,19 @@ import {
     deleteTicket,
     getTicketById,
 } from "../api/tickets_api";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { ticketSchema } from "../schemas/TicketSchema";
+import { ClipLoader } from "react-spinners";
 
 export function TicketFormPage() {
     const navigate = useNavigate();
     const { id } = useParams();
 
     const isEditing = !!id;
+
+    const [suggestion, setSuggestion] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const formik = useFormik({
         validationSchema: ticketSchema,
@@ -83,6 +87,32 @@ export function TicketFormPage() {
         }
     }
 
+    async function handleSuggestResponse() {
+        if (formik.values.description != "") {
+            setLoading(true);
+
+            const response = await fetch(
+                "http://localhost:3000/ai/suggest-response",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        description: formik.values.description
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            setSuggestion(data.suggestion);
+
+            setLoading(false);
+        }
+
+    }
+
     return (
         <main className="min-h-screen bg-gray-100 p-8">
 
@@ -96,6 +126,8 @@ export function TicketFormPage() {
             <h1 className="mb-8 text-start text-3xl font-bold">
                 {isEditing ? "Editar Ticket" : "Novo Ticket"}
             </h1>
+
+
 
             <form onSubmit={formik.handleSubmit}>
                 <div className="mb-6 w-200">
@@ -122,7 +154,42 @@ export function TicketFormPage() {
                         touched={formik.touched.description}
                         error={formik.errors.description}
                     />
+
+
                 </div>
+
+                <div className="w-200 mb-6">
+                    <MainButton onClick={handleSuggestResponse} buttonText="Sugerir solução com I.A." disable={formik.values.description == ""} type="button" />
+                </div>
+
+                {!loading ? (<div className="mb-6 w-200">
+                    {suggestion && (
+                        <div className="mt-7 w-200 rounded-lg border bg-white p-4 shadow">
+                            <div className="flex items-center gap-1">
+                                <h3 className="font-semibold">
+                                    Sugestão da IA
+                                </h3>
+                                <FaStar />
+                            </div>
+
+                            <p className="mt-2 text-gray-700 whitespace-pre-line">
+                                {suggestion}
+                            </p>
+                        </div>
+                    )}
+                </div>) : (
+                    <div className="flex items-center mb-6 w-200 justify-center gap-1">
+                        <p>Carregando</p>
+                        <ClipLoader
+                            color="bg-black"
+                            loading={loading}
+                            size={25}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
+                    </div>
+                )}
+
 
                 <div className="mb-6">
                     <MainRadioGroup
@@ -174,11 +241,11 @@ export function TicketFormPage() {
 
                 {isEditing ? (
                     <div className="w-200">
-                        <MainButton buttonText="Editar informações" buttonColor="bg-green-600" hoverColor="hover:bg-green-700"></MainButton>
+                        <MainButton buttonText="Editar informações" buttonColor="bg-green-600" hoverColor="hover:bg-green-700" type="submit"></MainButton>
                     </div>
                 ) : (
                     <div className="w-200">
-                        <MainButton buttonText="Enviar Ticket"></MainButton>
+                        <MainButton buttonText="Enviar Ticket" type="submit"></MainButton>
                     </div>
                 )
                 }
@@ -190,6 +257,7 @@ export function TicketFormPage() {
                         buttonText="Excluir Ticket"
                         buttonColor="bg-red-600"
                         hoverColor="hover:bg-red-700"
+                        type="button"
                         onClick={handleDelete}
                     />
                 </div>
