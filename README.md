@@ -30,25 +30,32 @@ Eduardo Henrique Natividade Pinese
 - [x] docker-compose - Gerenciamento dos serviços e configuração do banco PostgreSQL.
 
 ### Extra
-- [ ] IA Gemini - Integração com a API Gemini para sugerir soluções automáticas aos usuários com base na descrição do ticket.
+- [x] IA HuggingFace - Integração com a API gratuita da HuggingFace para sugerir soluções automáticas aos usuários com base na descrição do ticket.
 
 # Fluxo de dados
 
-O frontend utiliza uma arquitetura Feature-Based, onde cada funcionalidade possui suas próprias páginas, componentes, hooks e camada de API. As requisições são realizadas via Axios com autenticação JWT. No backend, os Controllers recebem as requisições, os Services aplicam as regras de negócio e o TypeORM faz a persistência dos dados no PostgreSQL.
+O frontend utiliza uma arquitetura **Feature-Based**, onde cada funcionalidade possui sua própria estrutura de páginas, componentes, schemas e camada de comunicação com a API. As requisições são realizadas via Axios, utilizando autenticação JWT para acesso às rotas protegidas.
+
+No backend, os **Controllers** recebem as requisições, os **Services** aplicam as regras de negócio e o **TypeORM** realiza a persistência dos dados no PostgreSQL.
+
+A funcionalidade de **Sugestão de Resposta com IA** segue o mesmo fluxo arquitetural. O frontend envia apenas a descrição do ticket ao backend, que é responsável por consumir a API da Hugging Face. Dessa forma, o token de acesso permanece protegido no servidor e não é exposto ao cliente. Após receber a resposta da IA, o backend retorna a sugestão ao frontend para exibição ao usuário.
 
 ```mermaid
 flowchart TD
     A[Usuário] --> B[React]
     B --> C[Pages / Components]
-    C --> D[Hooks]
-    D --> E[Axios API]
-    E --> F[NestJS Controller]
-    F --> G[Service]
-    G --> H[TypeORM]
-    H --> I[(PostgreSQL)]
+    C --> D[Axios API]
 
-    F --> J[JWT Guard]
-    J --> G
+    D --> E[NestJS Controller]
+    E --> F[Service]
+    F --> G[TypeORM]
+    G --> H[(PostgreSQL)]
+
+    E --> I[JWT Guard]
+    I --> F
+
+    F --> J[Hugging Face Inference API]
+    J --> F
 ```
 
 # Como executar
@@ -100,6 +107,8 @@ DATABASE_NAME=helpdesk
 
 JWT_SECRET=...
 JWT_EXPIRES_IN=1d
+
+HUGGINGFACE_TOKEN=...
 ```
 
 ## Frontend (.env)
