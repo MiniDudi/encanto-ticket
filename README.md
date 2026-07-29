@@ -22,6 +22,11 @@ Projeto prático para a etapa do processo seletivo da Encanto Telecom com prazo 
 - [x] bcrypt - Criptografia e proteção das senhas. Implementado no módulo de Auth
 - [ ] Jest - Testes unitários dos serviços e componentes backend.
 
+### Infra
+- [x] Docker - Criação de containers para padronizar o ambiente de desenvolvimento.
+- [x] docker-compose - Gerenciamento dos serviços e configuração do banco PostgreSQL.
+
+
 # Facilidades
 1. Durante o desenvolvimento do Frontend em React, notei familiaridade com frameworks que trabalhei no passado
 Além disso, é muito interessante a forma como o React facilita a componentização das views.
