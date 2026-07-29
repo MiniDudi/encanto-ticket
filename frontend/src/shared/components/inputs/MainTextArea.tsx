@@ -4,6 +4,8 @@ interface MainTextAreaProps {
     type?: string;
     placeholder?: string;
     value: string;
+    error?: string;
+    touched?: boolean;
     onChange: React.ChangeEventHandler<HTMLTextAreaElement>;
     onBlur: React.FocusEventHandler<HTMLTextAreaElement>;
 }
@@ -13,6 +15,8 @@ export function MainTextArea({
     name,
     placeholder,
     value,
+    error,
+    touched,
     onChange,
     onBlur,
 }: MainTextAreaProps) {
@@ -31,6 +35,12 @@ export function MainTextArea({
                 className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
                 rows={4}
             />
+
+            {touched && error && (
+                <p className="mt-1 text-sm text-red-500">
+                    {error}
+                </p>
+            )}
         </div>
     );
 }

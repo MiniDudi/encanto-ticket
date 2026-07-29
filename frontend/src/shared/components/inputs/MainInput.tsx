@@ -4,6 +4,8 @@ interface MainInputProps {
     type?: string;
     placeholder?: string;
     value?: string;
+    error?: string;
+    touched?: boolean;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
 }
@@ -14,6 +16,8 @@ export function MainInput({
     type = "text",
     placeholder,
     value,
+    error,
+    touched,
     onChange,
     onBlur,
 }: MainInputProps) {
@@ -30,8 +34,17 @@ export function MainInput({
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
-                className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                className={`w-full rounded-lg border p-3 outline-none focus:border-blue-500 ${touched && error
+                        ? "border-red-500"
+                        : "border-gray-300"
+                    }`}
             />
+
+            {touched && error && (
+                <p className="mt-1 text-sm text-red-500">
+                    {error}
+                </p>
+            )}
         </div>
     );
 }

@@ -5,6 +5,7 @@ import { registerSchema } from "../schemas/RegisterSchema";
 import { useFormik } from "formik";
 import { MainButton } from "../../../shared/components/MainButton";
 import { register } from "../api/auth_api";
+import { MainInput } from "../../../shared/components/inputs/MainInput";
 
 
 export function RegisterCard() {
@@ -45,87 +46,55 @@ export function RegisterCard() {
 
             <form onSubmit={formik.handleSubmit} className="space-y-4">
                 <div>
-                    <label className="mb-1 block text-sm font-medium">
-                        Name
-                    </label>
-
-                    <input
-                        type="name"
+                    <MainInput
+                        label="Nome"
                         name="name"
                         placeholder="Digite seu nome"
                         value={formik.values.name}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                        touched={formik.touched.name}
+                        error={formik.errors.name}
                     />
-                    {formik.touched.name && formik.errors.name && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {formik.errors.name}
-                        </p>
-                    )}
                 </div>
 
                 <div>
-                    <label className="mb-1 block text-sm font-medium">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
+                    <MainInput
+                        label="Email"
                         name="email"
                         placeholder="Digite seu email"
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                        touched={formik.touched.email}
+                        error={formik.errors.email}
                     />
-                    {formik.touched.email && formik.errors.email && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {formik.errors.email}
-                        </p>
-                    )}
                 </div>
 
                 <div>
-                    <label className="mb-1 block text-sm font-medium">
-                        Senha
-                    </label>
-
-                    <input
-                        type="password"
+                    <MainInput
+                        label="Senha"
                         name="password"
                         placeholder="Digite sua senha"
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                        touched={formik.touched.password}
+                        error={formik.errors.password}
                     />
-                    {formik.touched.password && formik.errors.password && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {formik.errors.password}
-                        </p>
-                    )}
                 </div>
 
                 <div>
-                    <label className="mb-1 block text-sm font-medium">
-                        Repetir senha
-                    </label>
-
-                    <input
-                        type="password"
+                    <MainInput
+                        label="Repetir senha"
                         name="repeatPassword"
                         placeholder="Digite novamente sua senha"
                         value={formik.values.repeatPassword}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                        touched={formik.touched.repeatPassword}
+                        error={formik.errors.repeatPassword}
                     />
-                    {formik.touched.repeatPassword && formik.errors.repeatPassword && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {formik.errors.repeatPassword}
-                        </p>
-                    )}
                 </div>
 
                 <MainButton buttonText="Criar conta"></MainButton>

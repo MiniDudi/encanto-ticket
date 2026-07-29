@@ -106,13 +106,9 @@ export function TicketFormPage() {
                         value={formik.values.title}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        touched={formik.touched.title}
+                        error={formik.errors.title}
                     />
-
-                    {formik.touched.title && formik.errors.title && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {formik.errors.title}
-                        </p>
-                    )}
                 </div>
 
                 <div className="mb-6 w-200">
@@ -123,13 +119,9 @@ export function TicketFormPage() {
                         value={formik.values.description}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        touched={formik.touched.description}
+                        error={formik.errors.description}
                     />
-
-                    {formik.touched.description && formik.errors.description && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {formik.errors.description}
-                        </p>
-                    )}
                 </div>
 
                 <div className="mb-6">
