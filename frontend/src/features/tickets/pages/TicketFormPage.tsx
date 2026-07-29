@@ -25,6 +25,7 @@ export function TicketFormPage() {
         initialValues: {
             title: "",
             description: "",
+            status: "aberto",
             priority: "media",
         },
 
@@ -56,6 +57,7 @@ export function TicketFormPage() {
                     formik.setValues({
                         title: ticket.title,
                         description: ticket.description,
+                        status: ticket.status,
                         priority: ticket.priority,
                     });
                 });
@@ -139,19 +141,39 @@ export function TicketFormPage() {
                     />
                 </div>
 
-                <div className="mb-6">
-                    <p className="flex mb-3 items-center gap-2">
-                        <FaExclamation />
-                        Ao Salvar, o status do ticket será automaticamente definido como
-                        <div className="flex items-center w-30 h-10 rounded-xl justify-center bg-cyan-100 shadow-lg">
-                            <p>"Aberto"</p>
+                {!isEditing ?
+                    (<div className="mb-6">
+                        <div className="flex mb-3 items-center gap-2">
+                            <FaExclamation />
+
+                            <span>
+                                Ao Salvar, o status do ticket será automaticamente definido como
+                            </span>
+
+                            <div className="flex items-center w-30 h-10 rounded-xl justify-center bg-cyan-100 shadow-lg">
+                                <span>"Aberto"</span>
+                            </div>
                         </div>
-                    </p>
-                    <p className="flex items-center gap-2">
-                        <FaArrowRight />
-                        Isso poderá ser alterado na página de edição do Ticket
-                    </p>
-                </div>
+                        <p className="flex items-center gap-2">
+                            <FaArrowRight />
+                            Isso poderá ser alterado na página de edição do Ticket
+                        </p>
+                    </div>)
+                    :
+                    (<div className="mb-6">
+                        <MainRadioGroup
+                            label="Status"
+                            name="status"
+                            value={formik.values.status}
+                            onChange={formik.handleChange}
+                            options={[
+                                { label: "Aberto", value: "aberto" },
+                                { label: "Em andamento", value: "em_andamento" },
+                                { label: "Resolvido", value: "resolvido" },
+                            ]}
+                        />
+                    </div>)
+                }
 
                 {isEditing ? (
                     <div className="w-200">
