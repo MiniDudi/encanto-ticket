@@ -3,6 +3,7 @@ import { loginSchema } from "../schemas/LoginSchema";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MainButton } from "../../../shared/components/MainButton";
 import { MainInput } from "../../../shared/components/inputs/MainInput";
+import { login } from "../api/auth_api";
 
 
 export function LoginCard() {
@@ -14,8 +15,16 @@ export function LoginCard() {
             email: "",
             password: "",
         },
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
+            const response = await login(values);
+            localStorage.setItem(
+                "access_token",
+                response.access_token
+            );
+
             navigate("/tickets", { state: { formData: values } });
+
+
         },
     });
 

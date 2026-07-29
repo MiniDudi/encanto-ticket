@@ -1,12 +1,14 @@
 import { FaArrowLeft } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import { registerSchema } from "../schemas/RegisterSchema";
 import { useFormik } from "formik";
 import { MainButton } from "../../../shared/components/MainButton";
+import { register } from "../api/auth_api";
 
 
 export function RegisterCard() {
+    const navigate = useNavigate();
 
     const formik = useFormik({
         validationSchema: registerSchema,
@@ -16,8 +18,10 @@ export function RegisterCard() {
             password: "",
             repeatPassword: "",
         },
-        onSubmit: (values) => {
-            console.log(values);
+        onSubmit: async (values) => {
+            await register(values);
+
+            navigate("/");
         },
     });
 
@@ -39,7 +43,7 @@ export function RegisterCard() {
                 Crie sua conta no formulário abaixo
             </p>
 
-            <form className="space-y-4">
+            <form onSubmit={formik.handleSubmit} className="space-y-4">
                 <div>
                     <label className="mb-1 block text-sm font-medium">
                         Name
@@ -125,7 +129,7 @@ export function RegisterCard() {
                 </div>
 
                 <MainButton buttonText="Criar conta"></MainButton>
-                
+
             </form>
         </div>
     );

@@ -10,9 +10,9 @@ interface Props {
 
 export function TicketListItem({ ticket }: Props) {
     const navigate = useNavigate();
-    
-    function goToNewTicket() {
-        return navigate("/ticket/${ticket.id}/edit");
+
+    function goToEditTicket() {
+        return navigate(`/ticket/${ticket.id}/edit`);
     }
 
     return (
@@ -23,7 +23,7 @@ export function TicketListItem({ ticket }: Props) {
                 </h2>
 
                 <span className="rounded bg-blue-100 px-3 py-1 text-sm">
-                    {ticket.status == "em_andamento" ? `Em Andamento` : capitalizeFirstLetter(ticket.status)}
+                    {ticket.status == "IN_PROGRESS" ? `Em Andamento` : capitalizeFirstLetter(ticket.status)}
                 </span>
             </div>
 
@@ -37,7 +37,7 @@ export function TicketListItem({ ticket }: Props) {
                     Prioridade: {ticket.priority}
                 </span>
 
-                <button onClick={goToNewTicket} className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
+                <button onClick={goToEditTicket} className="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700">
                     Editar
                 </button>
             </div>
