@@ -27,12 +27,11 @@ export function TicketFormPage() {
 
     const formik = useFormik({
         validationSchema: ticketSchema,
-
         initialValues: {
             title: "",
             description: "",
             status: "aberto",
-            priority: "media",
+            priority: "baixa",
         },
 
         onSubmit: async (values) => {
