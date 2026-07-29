@@ -48,30 +48,22 @@ export function LoginCard() {
                         value={formik.values.email}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        touched={formik.touched.email}
+                        error={formik.errors.email}
                     />
-
-                    {formik.touched.email && formik.errors.email && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {formik.errors.email}
-                        </p>
-                    )}
                 </div>
 
                 <div>
                     <MainInput
                         label="Senha"
                         name="password"
-                        placeholder="Digite seu password"
+                        placeholder="Digite sua senha"
                         value={formik.values.password}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
+                        touched={formik.touched.password}
+                        error={formik.errors.password}
                     />
-
-                    {formik.touched.password && formik.errors.password && (
-                        <p className="mt-1 text-sm text-red-500">
-                            {formik.errors.password}
-                        </p>
-                    )}
                 </div>
 
                 <div>
