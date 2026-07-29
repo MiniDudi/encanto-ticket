@@ -12,6 +12,7 @@ import {
     getTicketById,
 } from "../api/tickets_api";
 import { useEffect } from "react";
+import axios from "axios";
 
 export function TicketFormPage() {
     const navigate = useNavigate();
@@ -41,11 +42,15 @@ export function TicketFormPage() {
                 }
 
                 navigate("/tickets");
-            } catch (error: any) {
-                console.error(
-                    "Erro ao salvar ticket",
-                    error.response?.data || error
-                );
+            } catch (error: unknown) {
+                if (axios.isAxiosError(error)) {
+                    console.error(
+                        "Erro ao salvar ticket",
+                        error.response?.data
+                    );
+                } else {
+                    console.error("Erro inesperado", error);
+                }
             }
         }
     });

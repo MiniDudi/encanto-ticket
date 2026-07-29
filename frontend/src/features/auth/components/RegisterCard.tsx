@@ -19,13 +19,9 @@ export function RegisterCard() {
             repeatPassword: "",
         },
         onSubmit: async (values) => {
-            try {
-                await register(values);
+            await register(values);
 
-                navigate("/");
-            } catch {
-
-            }
+            navigate("/");
         },
     });
 

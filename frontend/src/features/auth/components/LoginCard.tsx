@@ -16,17 +16,13 @@ export function LoginCard() {
             password: "",
         },
         onSubmit: async (values) => {
-            try {
-                const response = await login(values);
-                localStorage.setItem(
-                    "access_token",
-                    response.access_token
-                );
+            const response = await login(values);
+            localStorage.setItem(
+                "access_token",
+                response.access_token
+            );
 
-                navigate("/tickets", { state: { formData: values } });
-            } catch {
-
-            }
+            navigate("/tickets", { state: { formData: values } });
 
 
         },
