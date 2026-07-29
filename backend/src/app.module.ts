@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TicketsModule } from './tickets/tickets.module';
+import { AiModule } from './ai/ai.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { TicketsModule } from './tickets/tickets.module';
     AuthModule,
     UsersModule,
     TicketsModule,
+    AiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -5,6 +5,7 @@ import { MainInput } from "../../../shared/components/inputs/MainInput";
 import { useState } from "react";
 import { MainDropDown } from "../../../shared/components/inputs/MainDropDown";
 import { useTickets } from "../hooks/useTickets";
+import { ClipLoader } from "react-spinners";
 
 export function TicketListPage() {
     const navigate = useNavigate();
@@ -81,7 +82,16 @@ export function TicketListPage() {
 
             <div className="flex max-w-4xl flex-col gap-4">
                 {loading ? (
-                    <p>Carregando tickets...</p>
+                    <div className="flex items-center mb-6 w-200 justify-center gap-1">
+                        <p>Carregando tickets...</p>
+                        <ClipLoader
+                            color="bg-black"
+                            loading={loading}
+                            size={25}
+                            aria-label="Loading Spinner"
+                            data-testid="loader"
+                        />
+                    </div>
                 ) : itensFiltrados.length == 0 ? (
                     <p>Não há tickets registrados!</p>
                 ) : (
