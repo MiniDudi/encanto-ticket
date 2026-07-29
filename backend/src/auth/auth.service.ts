@@ -5,10 +5,11 @@ import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
+import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()
 export class AuthService {
-    
+
     async login(dto: LoginDto) {
         const user = await this.usersService.findByEmail(dto.email);
 
@@ -16,9 +17,9 @@ export class AuthService {
             throw new UnauthorizedException('Credenciais inválidas.');
         }
 
-        const passwordMatch = bcrypt.compare(
+        const passwordMatch = await bcrypt.compare(
             dto.password,
-            user.password
+            user.password,
         );
 
         if (!passwordMatch) {
@@ -50,7 +51,7 @@ export class AuthService {
             password: passwordHash,
         });
 
-        return user;
+        return new UserResponseDto(user);
     }
     constructor(
         private readonly usersService: UsersService,
