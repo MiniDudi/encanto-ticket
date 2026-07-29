@@ -9,9 +9,6 @@ export class CreateTicketDto {
   @IsString()
   description!: string;
 
-  @IsEnum(TicketStatus)
-  status!: TicketStatus;
-
   @IsEnum(TicketPriority)
   priority!: TicketPriority;
 }

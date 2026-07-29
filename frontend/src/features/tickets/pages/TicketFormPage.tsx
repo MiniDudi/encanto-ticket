@@ -1,32 +1,80 @@
 import { useFormik } from "formik"
 import { MainInput } from "../../../shared/components/inputs/MainInput";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft, FaArrowRight, FaExclamation } from "react-icons/fa";
 import { MainRadioGroup } from "../../../shared/components/inputs/MainRadioGroup";
 import { MainButton } from "../../../shared/components/MainButton";
 import { MainTextArea } from "../../../shared/components/inputs/MainTextArea";
+import {
+    createTicket,
+    updateTicket,
+    deleteTicket,
+    getTicketById,
+} from "../api/tickets_api";
+import { useEffect } from "react";
 
 export function TicketFormPage() {
+    const navigate = useNavigate();
     const { id } = useParams();
+
+    const isEditing = !!id;
 
     const formik = useFormik({
         validationSchema: null,
+
         initialValues: {
             title: "",
             description: "",
-            status: "aberto",
-            priority: "baixa",
+            priority: "media",
         },
-        onSubmit: (values) => {
-            if (isEditing) {
-                console.log("Atualizando ticket", id, values);
-            } else {
-                console.log("Criando ticket", values);
+
+        onSubmit: async (values) => {
+            try {
+                if (isEditing) {
+                    await updateTicket(
+                        Number(id),
+                        values
+                    );
+                } else {
+                    await createTicket(values);
+                }
+
+                navigate("/tickets");
+            } catch (error: any) {
+                console.error(
+                    "Erro ao salvar ticket",
+                    error.response?.data || error
+                );
             }
         }
-    })
+    });
 
-    const isEditing = !!id;
+    useEffect(() => {
+        if (id) {
+            getTicketById(Number(id))
+                .then(ticket => {
+                    formik.setValues({
+                        title: ticket.title,
+                        description: ticket.description,
+                        priority: ticket.priority,
+                    });
+                });
+        }
+    }, [id]);
+
+    async function handleDelete() {
+        try {
+            await deleteTicket(Number(id));
+
+            navigate("/tickets");
+
+        } catch (error) {
+            console.error(
+                "Erro ao excluir ticket",
+                error
+            );
+        }
+    }
 
     return (
         <main className="min-h-screen bg-gray-100 p-8">
@@ -123,6 +171,7 @@ export function TicketFormPage() {
                         buttonText="Excluir Ticket"
                         buttonColor="bg-red-600"
                         hoverColor="hover:bg-red-700"
+                        onClick={handleDelete}
                     />
                 </div>
             )}

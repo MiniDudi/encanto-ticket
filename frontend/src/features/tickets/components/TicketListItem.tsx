@@ -23,7 +23,7 @@ export function TicketListItem({ ticket }: Props) {
                 </h2>
 
                 <span className="rounded bg-blue-100 px-3 py-1 text-sm">
-                    {ticket.status == "em_andamento" ? `Em Andamento` : capitalizeFirstLetter(ticket.status)}
+                    {ticket.status == "IN_PROGRESS" ? `Em Andamento` : capitalizeFirstLetter(ticket.status)}
                 </span>
             </div>
 

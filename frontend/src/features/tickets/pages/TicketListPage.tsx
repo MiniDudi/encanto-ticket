@@ -1,20 +1,22 @@
 import { FaPlus } from "react-icons/fa";
 import { TicketListItem } from "../components/TicketListItem";
-import { mockTickets } from "../mocks/mockTicket";
 import { useNavigate } from "react-router-dom";
 import { MainInput } from "../../../shared/components/inputs/MainInput";
 import { useState } from "react";
 import { MainDropDown } from "../../../shared/components/inputs/MainDropDown";
+import { useTickets } from "../hooks/useTickets";
 
 export function TicketListPage() {
     const navigate = useNavigate();
+
+    const { tickets, loading } = useTickets();
 
     const [filters, setFilters] = useState({
         title: "",
         status: "",
     });
 
-    const itensFiltrados = mockTickets.filter((item) => {
+    const itensFiltrados = tickets.filter((item) => {
         const matchesTitle = item.title
             .toLowerCase()
             .includes(filters.title.toLowerCase());
@@ -78,12 +80,18 @@ export function TicketListPage() {
             </div>
 
             <div className="flex max-w-4xl flex-col gap-4">
-                {itensFiltrados.map((ticket) => (
-                    <TicketListItem
-                        key={ticket.id}
-                        ticket={ticket}
-                    />
-                ))}
+                {loading ? (
+                    <p>Carregando tickets...</p>
+                ) : itensFiltrados.length == 0 ? (
+                    <p>Não há tickets registrados!</p>
+                ) : (
+                    itensFiltrados.map((ticket) => (
+                        <TicketListItem
+                            key={ticket.id}
+                            ticket={ticket}
+                        />
+                    ))
+                )}
             </div>
         </main>
     );
