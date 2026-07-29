@@ -1,17 +1,13 @@
 services:
-
   postgres:
-
     image: postgres:17
-
-    container_name: helpdesk-db
-
+    container_name: encanto-ticket-db
     restart: always
 
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: helpdesk
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
 
     ports:
       - "5432:5432"
