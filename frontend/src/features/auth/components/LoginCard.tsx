@@ -1,7 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { useFormik } from "formik";
+import { loginSchema } from "../schemas/LoginSchema";
+import { NavLink, useNavigate } from "react-router-dom";
+import { MainButton } from "../../../shared/components/MainButton";
+import { MainInput } from "../../../shared/components/inputs/MainInput";
 
 
 export function LoginCard() {
+    const navigate = useNavigate();
+
+    const formik = useFormik({
+        validationSchema: loginSchema,
+        initialValues: {
+            email: "",
+            password: "",
+        },
+        onSubmit: (values) => {
+            navigate("/tickets", { state: { formData: values } });
+        },
+    });
+
     return (
         <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
             <h1 className="mb-2 text-center text-3xl font-bold">
@@ -12,41 +29,52 @@ export function LoginCard() {
                 Entre para acessar seus tickets
             </p>
 
-            <form className="space-y-4">
+            <form onSubmit={formik.handleSubmit} className="space-y-4">
 
                 <div>
-                    <label className="mb-1 block text-sm font-medium">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
+                    <MainInput
+                        label="Email"
+                        name="email"
                         placeholder="Digite seu email"
-                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                     />
+
+                    {formik.touched.email && formik.errors.email && (
+                        <p className="mt-1 text-sm text-red-500">
+                            {formik.errors.email}
+                        </p>
+                    )}
                 </div>
 
                 <div>
-                    <label className="mb-1 block text-sm font-medium">
-                        Senha
-                    </label>
-
-                    <input
-                        type="password"
-                        placeholder="Digite sua senha"
-                        className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                    <MainInput
+                        label="Senha"
+                        name="password"
+                        placeholder="Digite seu password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                     />
+
+                    {formik.touched.password && formik.errors.password && (
+                        <p className="mt-1 text-sm text-red-500">
+                            {formik.errors.password}
+                        </p>
+                    )}
                 </div>
 
                 <div>
-                    <p className="text-xs text-gray-600">Não possui uma conta? <NavLink className="font-semibold text-blue-600 hover:underline" rel="stylesheet" to="/register">Clique Aqui!</NavLink> </p>
+                    <p className="text-xs text-gray-600">
+                        Não possui uma conta?
+                        <NavLink className="font-semibold text-blue-600 hover:underline" rel="stylesheet" to="/register">
+                            Clique Aqui!
+                        </NavLink>
+                    </p>
                 </div>
 
-                <button
-                    className="w-full rounded-lg bg-blue-600 p-3 text-white transition hover:bg-blue-700"
-                >
-                    Entrar
-                </button>
+                <MainButton buttonText="Entrar"></MainButton>
 
             </form>
         </div>
