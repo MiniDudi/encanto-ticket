@@ -1,6 +1,9 @@
 # Encanto Telecom Ticket
 Projeto prático para a etapa do processo seletivo da Encanto Telecom com prazo de até sexta-feita, dia 31, às 18h.
 
+# Desenvolvedor
+Eduardo Henrique Natividade Pinese
+
 # Lista de Stacks
 
 ### Frontend
@@ -9,7 +12,7 @@ Projeto prático para a etapa do processo seletivo da Encanto Telecom com prazo 
 - [x] Tailwind CSS
 - [x] Formik - Gerenciamento e controle de formulários. Login / Registro / New Ticket / Edit Ticket
 - [x] Yup - Validação de dados dos formulários. 
-- [x] Axios - Consumo e integração com APIs REST desenvolvido com Nestjs.
+- [] Axios - Consumo e integração com APIs REST desenvolvido com Nestjs.
 - [x] React Router - Navegação entre páginas da aplicação.
 
 ### Backend
