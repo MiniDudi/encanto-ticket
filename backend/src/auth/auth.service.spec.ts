@@ -45,10 +45,16 @@ describe('AuthService', () => {
   it('deve cadastrar um novo usuário', async () => {
     mockUsersService.findByEmail.mockResolvedValue(null);
 
-    mockUsersService.create.mockImplementation(async (user) => ({
-      id: 1,
-      ...user,
-    }));
+    mockUsersService.create.mockImplementation(
+      (user: {
+        name: string;
+        email: string;
+        password: string;
+      }) => ({
+        id: 1,
+        ...user,
+      }),
+    );
 
     const dto = {
       name: 'Eduardo',
