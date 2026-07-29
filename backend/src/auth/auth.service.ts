@@ -9,7 +9,7 @@ import { UserResponseDto } from './dto/user-response.dto';
 
 @Injectable()
 export class AuthService {
-    
+
     async login(dto: LoginDto) {
         const user = await this.usersService.findByEmail(dto.email);
 
@@ -17,9 +17,9 @@ export class AuthService {
             throw new UnauthorizedException('Credenciais inválidas.');
         }
 
-        const passwordMatch = bcrypt.compare(
+        const passwordMatch = await bcrypt.compare(
             dto.password,
-            user.password
+            user.password,
         );
 
         if (!passwordMatch) {

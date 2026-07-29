@@ -8,20 +8,32 @@ import {
   Patch,
   Post,
   Req,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
+
+import { Request } from 'express';
 
 import { TicketsService } from './tickets.service';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UsersService } from '../users/users.service';
+
+interface AuthenticatedRequest extends Request {
+  user: {
+    id: number;
+    email: string;
+  };
+}
 
 @Controller('tickets')
 @UseGuards(JwtAuthGuard)
 export class TicketsController {
   constructor(
     private readonly ticketsService: TicketsService,
-  ) {}
+    private readonly usersService: UsersService,
+  ) { }
 
   @Get()
   findAll() {
@@ -29,11 +41,17 @@ export class TicketsController {
   }
 
   @Post()
-  create(
+  async create(
     @Body() dto: CreateTicketDto,
-    @Req() req: any,
+    @Req() req: AuthenticatedRequest,
   ) {
-    return this.ticketsService.create(dto, req.user);
+    const user = await this.usersService.findById(req.user.id);
+
+    if (!user) {
+      throw new UnauthorizedException('Usuário não encontrado.');
+    }
+
+    return this.ticketsService.create(dto, user);
   }
 
   @Patch(':id')
