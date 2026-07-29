@@ -40,6 +40,13 @@ export class TicketsController {
     return this.ticketsService.findAll();
   }
 
+  @Get(':id')
+  findById(
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.ticketsService.findById(id);
+  }
+
   @Post()
   async create(
     @Body() dto: CreateTicketDto,
