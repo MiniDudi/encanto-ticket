@@ -13,6 +13,7 @@ import {
 } from "../api/tickets_api";
 import { useEffect } from "react";
 import axios from "axios";
+import { ticketSchema } from "../schemas/TicketSchema";
 
 export function TicketFormPage() {
     const navigate = useNavigate();
@@ -21,13 +22,12 @@ export function TicketFormPage() {
     const isEditing = !!id;
 
     const formik = useFormik({
-        validationSchema: null,
-
+        validationSchema: ticketSchema,
         initialValues: {
             title: "",
             description: "",
             status: "aberto",
-            priority: "media",
+            priority: "baixa",
         },
 
         onSubmit: async (values) => {
