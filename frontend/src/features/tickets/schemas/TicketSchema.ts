@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { TicketPriority, TicketStatus } from "../types/ticket";
 
 export const ticketSchema = Yup.object({
     title: Yup.string()
@@ -8,14 +9,14 @@ export const ticketSchema = Yup.object({
 
     status: Yup.string()
         .oneOf(
-            ["aberto", "em_andamento", "resolvido"],
+            Object.values(TicketStatus),
             "Status inválido"
         )
         .required("O status é obrigatório"),
 
     priority: Yup.string()
         .oneOf(
-            ["baixa", "média", "alta"],
+            Object.values(TicketPriority),
             "Prioridade inválida"
         )
         .required("A prioridade é obrigatória"),

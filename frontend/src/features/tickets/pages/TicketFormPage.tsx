@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { ticketSchema } from "../schemas/TicketSchema";
 import { ClipLoader } from "react-spinners";
+import { returnStatusColor } from "../utils/StatusUtils";
+import { TicketStatus, TicketPriority } from "../types/ticket";
 
 export function TicketFormPage() {
     const navigate = useNavigate();
@@ -30,8 +32,8 @@ export function TicketFormPage() {
         initialValues: {
             title: "",
             description: "",
-            status: "aberto",
-            priority: "baixa",
+            status: TicketStatus.OPEN,
+            priority: TicketPriority.LOW,
         },
 
         onSubmit: async (values) => {
@@ -132,7 +134,7 @@ export function TicketFormPage() {
             <form onSubmit={formik.handleSubmit}>
                 <div className="mb-6 w-200">
                     <MainInput
-                        label="Title"
+                        label="Título"
                         name="title"
                         placeholder="Qual o tópico do seu problema?"
                         value={formik.values.title}
@@ -198,9 +200,9 @@ export function TicketFormPage() {
                         value={formik.values.priority}
                         onChange={formik.handleChange}
                         options={[
-                            { label: "Baixa", value: "baixa" },
-                            { label: "Média", value: "media" },
-                            { label: "Alta", value: "alta" },
+                            { label: "Baixa", value: TicketPriority.LOW },
+                            { label: "Média", value: TicketPriority.MEDIUM },
+                            { label: "Alta", value: TicketPriority.HIGH },
                         ]}
                     />
                 </div>
@@ -214,7 +216,7 @@ export function TicketFormPage() {
                                 Ao Salvar, o status do ticket será automaticamente definido como
                             </span>
 
-                            <div className="flex items-center w-30 h-10 rounded-xl justify-center bg-cyan-100 shadow-lg">
+                            <div className={`flex items-center w-30 h-10 rounded-xl justify-center ${returnStatusColor(TicketStatus.OPEN)} shadow-lg`}>
                                 <span>"Aberto"</span>
                             </div>
                         </div>
@@ -231,9 +233,9 @@ export function TicketFormPage() {
                             value={formik.values.status}
                             onChange={formik.handleChange}
                             options={[
-                                { label: "Aberto", value: "aberto" },
-                                { label: "Em andamento", value: "em_andamento" },
-                                { label: "Resolvido", value: "resolvido" },
+                                { label: "Aberto", value: TicketStatus.OPEN },
+                                { label: "Em andamento", value: TicketStatus.IN_PROGRESS },
+                                { label: "Resolvido", value: TicketStatus.RESOLVED },
                             ]}
                         />
                     </div>)

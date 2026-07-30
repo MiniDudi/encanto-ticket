@@ -36,7 +36,7 @@ export function MainInput({
                 onBlur={onBlur}
                 className={`w-full rounded-lg border p-3 outline-none focus:border-blue-500 ${touched && error
                         ? "border-red-500"
-                        : "border-gray-300"
+                        : "border-black-300"
                     }`}
             />
 

@@ -1,8 +1,9 @@
 import { FaCircle } from "react-icons/fa";
 import { capitalizeFirstLetter } from "../../../shared/utils/StringUtils";
-import type { Ticket } from "../types/ticket";
+import { type Ticket } from "../types/ticket";
 import { useNavigate } from "react-router-dom";
 import { returnPriorityColor } from "../utils/PriorityUtils";
+import { returnStatusColor } from "../utils/StatusUtils";
 
 interface Props {
     ticket: Ticket;
@@ -10,6 +11,8 @@ interface Props {
 
 export function TicketListItem({ ticket }: Props) {
     const navigate = useNavigate();
+
+    console.log(ticket.status);
 
     function goToEditTicket() {
         return navigate(`/ticket/${ticket.id}/edit`);
@@ -22,8 +25,8 @@ export function TicketListItem({ ticket }: Props) {
                     {ticket.title}
                 </h2>
 
-                <span className="rounded bg-blue-100 px-3 py-1 text-sm">
-                    {ticket.status == "IN_PROGRESS" ? `Em Andamento` : capitalizeFirstLetter(ticket.status)}
+                <span className={`rounded ${returnStatusColor(ticket.status)} px-3 py-1 text-sm`}>
+                    {capitalizeFirstLetter(ticket.status)}
                 </span>
             </div>
 

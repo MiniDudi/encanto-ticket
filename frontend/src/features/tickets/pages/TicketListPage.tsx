@@ -6,6 +6,7 @@ import { useState } from "react";
 import { MainDropDown } from "../../../shared/components/inputs/MainDropDown";
 import { useTickets } from "../hooks/useTickets";
 import { ClipLoader } from "react-spinners";
+import { TicketStatus } from "../types/ticket";
 
 export function TicketListPage() {
     const navigate = useNavigate();
@@ -59,9 +60,9 @@ export function TicketListPage() {
                     }
                     options={[
                         { label: "Todos", value: "" },
-                        { label: "Aberto", value: "aberto" },
-                        { label: "Em andamento", value: "em_andamento" },
-                        { label: "Resolvido", value: "resolvido" },
+                        { label: "Aberto", value: TicketStatus.OPEN },
+                        { label: "Em progresso", value: TicketStatus.IN_PROGRESS },
+                        { label: "Resolvido", value: TicketStatus.RESOLVED },
                     ]}
                 />
 
