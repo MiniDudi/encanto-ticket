@@ -1,7 +1,10 @@
+import type { ReactNode } from "react";
+
 interface ButtonProps {
     buttonText: string;
     buttonColor?: string;
     hoverColor?: string;
+    prefixIcon?: ReactNode;
     onClick?: () => void;
     disable?: boolean;
     type?: "button" | "submit";
@@ -12,6 +15,7 @@ export function MainButton({
     buttonColor = "bg-blue-600",
     hoverColor = "hover:bg-blue-700",
     onClick,
+    prefixIcon,
     disable = false,
     type = "submit",
 }: ButtonProps) {
@@ -20,9 +24,12 @@ export function MainButton({
             type={type}
             onClick={onClick}
             disabled={disable}
-            className={`w-full rounded-lg p-3 text-white transition ${buttonColor} ${hoverColor}`}
+            className={`${prefixIcon ? `flex gap-3 items-center` : ``} w-full rounded-lg p-3 text-white transition ${buttonColor} ${hoverColor}`}
         >
-            {buttonText}
+            {prefixIcon}
+            <span>
+                {buttonText}
+            </span>
         </button>
     );
 }

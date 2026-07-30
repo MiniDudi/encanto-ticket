@@ -1,4 +1,4 @@
-import { FaPlus } from "react-icons/fa";
+import { FaPlus, FaSignOutAlt } from "react-icons/fa";
 import { TicketListItem } from "../components/TicketListItem";
 import { useNavigate } from "react-router-dom";
 import { MainInput } from "../../../shared/components/inputs/MainInput";
@@ -7,6 +7,7 @@ import { MainDropDown } from "../../../shared/components/inputs/MainDropDown";
 import { useTickets } from "../hooks/useTickets";
 import { ClipLoader } from "react-spinners";
 import { TicketStatus } from "../types/ticket";
+import { MainButton } from "../../../shared/components/MainButton";
 
 export function TicketListPage() {
     const navigate = useNavigate();
@@ -33,18 +34,25 @@ export function TicketListPage() {
         return navigate("/tickets/new");
     }
 
+    function logout() {
+        localStorage.removeItem("access_token");
+        navigate("/");
+    }
+
     return (
         <main className="min-h-screen bg-gray-100 p-8">
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
 
                 <h1 className="mb-8 text-start text-3xl font-bold">
                     Lista de Tickets
                 </h1>
 
-                <button onClick={goToNewTicket} className="flex items-center gap-5 w-60 rounded-lg bg-blue-600 p-3 text-white transition hover:bg-blue-700" >
-                    <FaPlus /> Criar Novo Ticket
-                </button>
-
+                <div className="flex items-center gap-3 w-100">
+                    <MainButton onClick={goToNewTicket} buttonText="Criar Novo Ticket" buttonColor="bg-blue-600" hoverColor="hover:bg-blue-700" prefixIcon={<FaPlus />} type="button" />
+                    <div className="w-25">
+                        <MainButton onClick={logout} buttonText="Sair" buttonColor="bg-red-600" hoverColor="hover:bg-red-700" prefixIcon={<FaSignOutAlt />} type="button" />
+                    </div>
+                </div>
             </div>
 
             <div className="flex items-center gap-4 w-100 mb-6">
