@@ -12,12 +12,6 @@ import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class TicketsService {
-    async findOne(id: number) {
-        return this.ticketsRepository.findOne({
-            where: { id },
-            relations: ['user'],
-        });
-    }
     constructor(
         @InjectRepository(Ticket)
         private readonly ticketsRepository: Repository<Ticket>,
@@ -37,6 +31,17 @@ export class TicketsService {
             relations: {
                 user: true,
             },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                status: true,
+                priority: true,
+                user: {
+                    id: true,
+                    name: true,
+                },
+            },
         });
     }
 
@@ -45,6 +50,17 @@ export class TicketsService {
             where: { id },
             relations: {
                 user: true,
+            },
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                status: true,
+                priority: true,
+                user: {
+                    id: true,
+                    name: true,
+                },
             },
         });
 
@@ -56,7 +72,16 @@ export class TicketsService {
     }
 
     async update(id: number, dto: UpdateTicketDto): Promise<Ticket> {
-        const ticket = await this.findById(id);
+        const ticket = await this.ticketsRepository.findOne({
+            where: { id },
+            relations: {
+                user: true,
+            },
+        });
+
+        if (!ticket) {
+            throw new NotFoundException('Ticket não encontrado.');
+        }
 
         Object.assign(ticket, dto);
 
