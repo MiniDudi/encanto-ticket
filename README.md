@@ -88,6 +88,11 @@ npm install
 npm run dev
 ```
 
+## Docker
+```bash
+docker compose up --build  
+```
+
 Aplicação disponível em:
 
 http://localhost:5173
@@ -97,18 +102,21 @@ http://localhost:5173
 ## Backend (.env)
 
 ```env
-PORT=3000
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=helpdesk
 
-DATABASE_HOST=localhost
+DATABASE_HOST=postgres
 DATABASE_PORT=5432
 DATABASE_USER=postgres
 DATABASE_PASSWORD=postgres
 DATABASE_NAME=helpdesk
 
-JWT_SECRET=...
+JWT_SECRET=4f4db2c735d2b3f0a2d6c4c1aee1d8ef7b7d90d34d9aafee8a2cdb6d8c8f93b2f7b92b4b6e6a8b8f3f8c9d2c6d7a9b3e
 JWT_EXPIRES_IN=1d
+PORT=3000
 
-HUGGINGFACE_TOKEN=...
+HUGGINGFACE_TOKEN=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
 ```
 
 ## Frontend (.env)
@@ -130,4 +138,6 @@ Pelo projeto ser pequeno em features
 1. Na instalação do Docker, encontrei muitos problemas de permisão ao acesso de pastas internas do computador. Utilizando o auxílio de IA para resolver, a instalação e setup do Docker foi bem-sucedido
 
 2. Jest não veio configurado corretamente. Arquivos de teste automaticamente gerados pelo Nest.js quebraram. Precisei criar "tsconfig.specs.json" na root e adicionar tipos de compilação no "tsconfig.json"
+
+3. A listagem de tickets estava me retornando e-mail e senha encriptografada do usuário logar. Por problemas de privacidade, decidi remover esses dados do retorno alterando a DTO de tickets-response
 
