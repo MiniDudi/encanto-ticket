@@ -243,11 +243,11 @@ export function TicketFormPage() {
 
                 {isEditing ? (
                     <div className="w-200">
-                        <MainButton buttonText="Editar informações" buttonColor="bg-green-600" hoverColor="hover:bg-green-700" type="submit"></MainButton>
+                        <MainButton buttonText="Editar informações" buttonColor="bg-green-600" hoverColor="hover:bg-green-700" type="submit" />
                     </div>
                 ) : (
                     <div className="w-200">
-                        <MainButton buttonText="Enviar Ticket" type="submit"></MainButton>
+                        <MainButton buttonText="Enviar Ticket" type="submit" />
                     </div>
                 )
                 }

@@ -17,6 +17,7 @@ export function LoginCard() {
         },
         onSubmit: async (values) => {
             const response = await login(values);
+            
             localStorage.setItem(
                 "access_token",
                 response.access_token
