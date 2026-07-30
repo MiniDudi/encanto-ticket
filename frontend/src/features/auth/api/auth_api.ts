@@ -12,6 +12,7 @@ interface RegisterRequest {
 }
 
 interface LoginResponse {
+    name: string
     access_token: string;
 }
 

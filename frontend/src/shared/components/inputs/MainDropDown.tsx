@@ -19,7 +19,7 @@ export function MainDropDown({
     onChange,
 }: DropDownProps) {
     return (
-        <div>
+        <div className="w-50">
             <label
                 htmlFor={name}
                 className="mb-1 block text-sm font-medium"
@@ -32,7 +32,7 @@ export function MainDropDown({
                 name={name}
                 value={value}
                 onChange={onChange}
-                className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                className="w-full rounded-lg border p-3 outline-none bg-white focus:border-blue-500"
             >
                 {options.map((option) => (
                     <option
