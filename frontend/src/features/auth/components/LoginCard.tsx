@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { MainButton } from "../../../shared/components/MainButton";
 import { MainInput } from "../../../shared/components/inputs/MainInput";
 import { login } from "../api/auth_api";
-
+import axios from "axios";
 
 export function LoginCard() {
     const navigate = useNavigate();
@@ -16,14 +16,31 @@ export function LoginCard() {
             password: "",
         },
         onSubmit: async (values) => {
-            const response = await login(values);
-            
-            localStorage.setItem(
-                "access_token",
-                response.access_token
-            );
+            try {
+                const response = await login(values);
 
-            navigate("/tickets", { state: { formData: values } });
+                localStorage.setItem(
+                    "access_token",
+                    response.access_token
+                );
+
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(response.name)
+                );
+
+                console.log(response.name);
+
+                navigate("/tickets", { state: { formData: values } });
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    console.error(error.response?.data);
+
+                    alert("Email ou senha inválido");
+                } else {
+                    alert("Oh oh! Algo deu errado.");
+                }
+            }
 
 
         },

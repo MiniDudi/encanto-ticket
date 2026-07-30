@@ -34,7 +34,7 @@ export function MainInput({
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
-                className={`w-full rounded-lg border p-3 outline-none focus:border-blue-500 ${touched && error
+                className={`w-full rounded-lg border p-3 outline-none bg-white focus:border-blue-500 ${touched && error
                         ? "border-red-500"
                         : "border-black-300"
                     }`}

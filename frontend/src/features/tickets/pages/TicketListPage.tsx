@@ -6,17 +6,20 @@ import { useState } from "react";
 import { MainDropDown } from "../../../shared/components/inputs/MainDropDown";
 import { useTickets } from "../hooks/useTickets";
 import { ClipLoader } from "react-spinners";
-import { TicketStatus } from "../types/ticket";
+import { TicketPriority, TicketStatus } from "../types/ticket";
 import { MainButton } from "../../../shared/components/MainButton";
 
 export function TicketListPage() {
     const navigate = useNavigate();
+
+    const userName = JSON.parse(localStorage.getItem("user") ?? "{}");
 
     const { tickets, loading } = useTickets();
 
     const [filters, setFilters] = useState({
         title: "",
         status: "",
+        priority: "",
     });
 
     const itensFiltrados = tickets.filter((item) => {
@@ -27,7 +30,10 @@ export function TicketListPage() {
         const matchesStatus =
             filters.status === "" || item.status === filters.status;
 
-        return matchesTitle && matchesStatus;
+        const matchesPriority =
+            filters.priority === "" || item.priority === filters.priority;
+
+        return matchesTitle && matchesStatus && matchesPriority;
     });
 
     function goToNewTicket() {
@@ -47,17 +53,24 @@ export function TicketListPage() {
                     Lista de Tickets
                 </h1>
 
-                <div className="flex items-center gap-3 w-100">
-                    <MainButton onClick={goToNewTicket} buttonText="Criar Novo Ticket" buttonColor="bg-blue-600" hoverColor="hover:bg-blue-700" prefixIcon={<FaPlus />} type="button" />
-                    <div className="w-25">
-                        <MainButton onClick={logout} buttonText="Sair" buttonColor="bg-red-600" hoverColor="hover:bg-red-700" prefixIcon={<FaSignOutAlt />} type="button" />
+                <div>
+
+                    <h2 className="mb-5 text-start text-2xl font-bold">
+                        Olá, {userName}!
+                    </h2>
+
+                    <div className="flex items-center gap-3 w-100">
+                        <MainButton onClick={goToNewTicket} buttonText="Criar Novo Ticket" buttonColor="bg-blue-600" hoverColor="hover:bg-blue-700" prefixIcon={<FaPlus />} type="button" />
+                        <div className="w-25">
+                            <MainButton onClick={logout} buttonText="Sair" buttonColor="bg-red-600" hoverColor="hover:bg-red-700" prefixIcon={<FaSignOutAlt />} type="button" />
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex items-center gap-4 w-100 mb-6">
+            <div className="flex items-center gap-5 w-200 mb-6">
                 <MainDropDown
-                    label=""
+                    label="Status"
                     name="status"
                     value={filters.status}
                     onChange={(e) =>
@@ -74,19 +87,39 @@ export function TicketListPage() {
                     ]}
                 />
 
-                <MainInput
-                    label=""
-                    name="title"
-                    placeholder="Título do ticket"
-                    value={filters.title}
+                <MainDropDown
+                    label="Prioridade"
+                    name="priority"
+                    value={filters.priority}
                     onChange={(e) =>
                         setFilters((prev) => ({
                             ...prev,
-                            title: e.target.value,
+                            priority: e.target.value,
                         }))
                     }
-                    onBlur={() => { }}
+                    options={[
+                        { label: "Todos", value: "" },
+                        { label: "Alto", value: TicketPriority.HIGH },
+                        { label: "Médio", value: TicketPriority.MEDIUM },
+                        { label: "Baixo", value: TicketPriority.LOW },
+                    ]}
                 />
+
+                <div className="mt-5">
+                    <MainInput
+                        label=""
+                        name="title"
+                        placeholder="Título do ticket"
+                        value={filters.title}
+                        onChange={(e) =>
+                            setFilters((prev) => ({
+                                ...prev,
+                                title: e.target.value,
+                            }))
+                        }
+                        onBlur={() => { }}
+                    />
+                </div>
             </div>
 
             <div className="flex max-w-4xl flex-col gap-4">
