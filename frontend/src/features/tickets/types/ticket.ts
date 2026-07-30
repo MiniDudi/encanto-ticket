@@ -1,13 +1,14 @@
-export type TicketStatus =
-    | "OPEN"
-    | "IN_PROGRESS"
-    | "RESOLVED";
+export enum TicketStatus {
+    OPEN = "Aberto",
+    IN_PROGRESS = "Em progresso",
+    RESOLVED = "Resolvido",
+}
 
-
-export type TicketPriority =
-    | "LOW"
-    | "MEDIUM"
-    | "HIGH";
+export enum TicketPriority {
+    LOW = "Baixo",
+    MEDIUM = "Médio",
+    HIGH = "Alto",
+}
 
 export interface Ticket {
     id: number;

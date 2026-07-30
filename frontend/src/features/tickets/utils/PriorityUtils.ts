@@ -1,10 +1,10 @@
 export function returnPriorityColor(priority: string) {
     switch (priority) {
-        case "alta":
+        case "Alto":
             return "red";
-        case "media":
+        case "Médio":
             return "orange";
-        case "baixa":
+        case "Baixo":
             return "cyan";
     }
 }

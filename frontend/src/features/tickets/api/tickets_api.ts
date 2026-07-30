@@ -1,5 +1,5 @@
 import { api } from "../../../core/api/api";
-import type { Ticket } from "../types/ticket";
+import type { Ticket, TicketPriority } from "../types/ticket";
 
 export async function getTickets(): Promise<Ticket[]> {
     const response = await api.get<Ticket[]>("/tickets");
@@ -18,7 +18,7 @@ export async function getTicketById(
 export async function createTicket(data: {
     title: string;
     description: string;
-    priority: string;
+    priority: TicketPriority;
 }) {
     const response = await api.post(
         "/tickets",
