@@ -58,45 +58,6 @@ flowchart TD
     J --> F
 ```
 
-# Como executar
-
-## Backend
-
-```bash
-cd backend
-
-npm install
-
-docker-compose up -d
-
-npm run start:dev
-```
-
-A API disponível em:
-
-http://localhost:3000
-
----
-
-## Frontend
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-
-## Docker
-```bash
-docker compose up --build  
-```
-
-Aplicação disponível em:
-
-http://localhost:5173
-
 # Variáveis de ambiente
 
 ## Backend (.env)
@@ -116,13 +77,20 @@ JWT_SECRET=4f4db2c735d2b3f0a2d6c4c1aee1d8ef7b7d90d34d9aafee8a2cdb6d8c8f93b2f7b92
 JWT_EXPIRES_IN=1d
 PORT=3000
 
-HUGGINGFACE_TOKEN=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
+HUGGINGFACE_TOKEN=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
 ```
 
 ## Frontend (.env)
 
 ```env
 VITE_API_URL=http://localhost:3000
+```
+
+# Como executar
+
+### Na root do projeto e com o Docker Desktop LTS aberto, rode:
+```bash
+docker compose up --build  
 ```
 
 # Aprendizados / Facilidades
