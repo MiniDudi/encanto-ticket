@@ -102,7 +102,7 @@ describe('TicketsService', () => {
 
     mockRepository.findOne.mockResolvedValue(ticket);
 
-    const result = await service.findOne(1);
+    const result = await service.findById(1);
 
     expect(mockRepository.findOne).toHaveBeenCalled();
     expect(result).toEqual(ticket);
