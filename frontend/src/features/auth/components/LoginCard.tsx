@@ -83,6 +83,7 @@ export function LoginCard() {
                     <MainInput
                         label="Senha"
                         name="password"
+                        type="password"
                         placeholder="Digite sua senha"
                         value={formik.values.password}
                         onChange={formik.handleChange}
