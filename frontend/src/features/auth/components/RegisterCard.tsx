@@ -75,6 +75,7 @@ export function RegisterCard() {
                     <MainInput
                         label="Senha"
                         name="password"
+                        type="password"
                         placeholder="Digite sua senha"
                         value={formik.values.password}
                         onChange={formik.handleChange}
@@ -88,6 +89,7 @@ export function RegisterCard() {
                     <MainInput
                         label="Repetir senha"
                         name="repeatPassword"
+                        type="password"
                         placeholder="Digite novamente sua senha"
                         value={formik.values.repeatPassword}
                         onChange={formik.handleChange}
