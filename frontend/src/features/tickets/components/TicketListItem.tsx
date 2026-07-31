@@ -12,25 +12,23 @@ interface Props {
 export function TicketListItem({ ticket }: Props) {
     const navigate = useNavigate();
 
-    console.log(ticket.status);
-
     function goToEditTicket() {
         return navigate(`/ticket/${ticket.id}/edit`);
     }
 
     return (
         <div className="rounded-lg border bg-white p-4 shadow">
-            <div className="flex items-center justify-between">
-                <h2 className="text-xl font-semibold">
+            <div className="flex items-start justify-between gap-4">
+                <h2 className="min-w-0 flex-1 break-words text-xl font-semibold">
                     {ticket.title}
                 </h2>
 
-                <span className={`rounded ${returnStatusColor(ticket.status)} px-3 py-1 text-sm`}>
+                <span className={`rounded ${returnStatusColor(ticket.status)} px-3 py-1 text-sm shrink-0`}>
                     {capitalizeFirstLetter(ticket.status)}
                 </span>
             </div>
 
-            <p className="mt-3 text-gray-600">
+            <p className="mt-3 text-gray-600 break-words whitespace-pre-wrap">
                 {ticket.description}
             </p>
 

@@ -90,7 +90,9 @@ export function TicketFormPage() {
     }
 
     async function handleSuggestResponse() {
-        if (formik.values.description != "") {
+        if (formik.values.description === "") return;
+
+        try {
             setLoading(true);
 
             const response = await fetch(
@@ -98,21 +100,35 @@ export function TicketFormPage() {
                 {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        description: formik.values.description
-                    })
+                        description: formik.values.description,
+                    }),
                 }
             );
+
+            if (!response.ok) {
+                const error = await response.json();
+
+                alert(
+                    error.message ??
+                    "Não foi possível gerar a sugestão da IA."
+                );
+
+                return;
+            }
 
             const data = await response.json();
 
             setSuggestion(data.suggestion);
+        } catch (error) {
+            console.error(error);
 
+            alert("Erro ao conectar com o servidor.");
+        } finally {
             setLoading(false);
         }
-
     }
 
     return (

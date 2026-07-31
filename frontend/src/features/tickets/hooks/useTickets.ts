@@ -11,8 +11,6 @@ export function useTickets() {
             setLoading(true);
 
             const data = await getTickets();
-            console.log(data);
-            
 
             setTickets(data);
         } finally {

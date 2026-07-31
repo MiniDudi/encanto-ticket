@@ -32,7 +32,7 @@ export function MainTextArea({
                 value={value}
                 onChange={onChange}
                 onBlur={onBlur}
-                className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+                className="w-full rounded-lg border p-3 outline-none bg-white focus:border-blue-500"
                 rows={4}
             />
 
