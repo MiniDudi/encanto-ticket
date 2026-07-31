@@ -6,6 +6,7 @@ import { useFormik } from "formik";
 import { MainButton } from "../../../shared/components/MainButton";
 import { register } from "../api/auth_api";
 import { MainInput } from "../../../shared/components/inputs/MainInput";
+import axios from "axios";
 
 
 export function RegisterCard() {
@@ -20,9 +21,19 @@ export function RegisterCard() {
             repeatPassword: "",
         },
         onSubmit: async (values) => {
-            await register(values);
+            try {
+                await register(values);
 
-            navigate("/");
+                navigate("/");
+            } catch (error) {
+                if (axios.isAxiosError(error)) {
+                    console.error(error.response?.data);
+
+                    alert("Email já cadastrado!");
+                } else {
+                    alert("Oh oh! Algo deu errado.");
+                }
+            }
         },
     });
 
