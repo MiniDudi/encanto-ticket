@@ -4,7 +4,7 @@ Projeto prático para a etapa do processo seletivo da Encanto Telecom.
 # Desenvolvedor
 Eduardo Henrique Natividade Pinese
 
-# Lista de Stacks
+# Lista de Stacks obrigatórias
 
 ### Frontend
 - [x] TypeScript
@@ -32,13 +32,20 @@ Eduardo Henrique Natividade Pinese
 ### Extra
 - [x] IA HuggingFace - Integração com a API gratuita da HuggingFace para sugerir soluções automáticas aos usuários com base na descrição do ticket.
 
+# Funcionalidades
+
+- Cadastro de usuário
+- Login com JWT
+- Logout
+- Rotas protegidas
+- Listagem de tickets
+- Criação de tickets
+- Edição de tickets
+- Exclusão de tickets
+- Filtros por título, prioridade e status
+- Sugestão automática de resposta utilizando IA (Hugging Face)
+
 # Fluxo de dados
-
-O frontend utiliza uma arquitetura **Feature-Based**, onde cada funcionalidade possui sua própria estrutura de páginas, componentes, schemas e camada de comunicação com a API. As requisições são realizadas via Axios, utilizando autenticação JWT para acesso às rotas protegidas.
-
-No backend, os **Controllers** recebem as requisições, os **Services** aplicam as regras de negócio e o **TypeORM** realiza a persistência dos dados no PostgreSQL.
-
-A funcionalidade de **Sugestão de Resposta com IA** segue o mesmo fluxo arquitetural. O frontend envia apenas a descrição do ticket ao backend, que é responsável por consumir a API da Hugging Face. Dessa forma, o token de acesso permanece protegido no servidor e não é exposto ao cliente. Após receber a resposta da IA, o backend retorna a sugestão ao frontend para exibição ao usuário.
 
 ```mermaid
 flowchart TD
@@ -58,9 +65,25 @@ flowchart TD
     J --> F
 ```
 
+# Estratégias
+
+- O frontend utiliza uma arquitetura **Feature-Based**, onde cada funcionalidade possui sua própria estrutura de páginas, componentes, schemas e camada de comunicação com a API. As requisições são realizadas via Axios, utilizando autenticação JWT para acesso às rotas protegidas.
+
+- No backend, os **Controllers** recebem as requisições, os **Services** aplicam as regras de negócio e o **TypeORM** realiza a persistência dos dados no PostgreSQL.
+
+- A funcionalidade de **Sugestão de Resposta com IA** segue o mesmo fluxo de arquitetura. O frontend envia apenas a descrição do ticket ao backend, que é responsável por consumir a API da Hugging Face. Dessa forma, o token de acesso permanece protegido no servidor e não é exposto ao cliente. Após receber a resposta da IA, o backend retorna a sugestão ao frontend para exibição ao usuário.
+
+- Utilizei **Docker** para containerizar o backend, frontend e banco de dados PostgreSQL. Dessa forma, toda a aplicação pode ser iniciada com um único comando (docker compose up --build), facilitando a configuração do ambiente.
+
+- Implementei **Github Actions** para validação do código em ambas frentes do projeto. Para cada `push` ou `Merge Request` realizado nas branches develop e main é executado um workflow que instala as dependências do projeto e roda o ESLint, garantindo padronização da qualidade e evitando que alterações com problemas sejam integradas às branches principais.
+
 # Variáveis de ambiente
 
+Crie um `.env` na root da pasta Backend e Frontend e adicione o seguinte conteúdo:
+
 ## Backend (.env)
+
+(O `HUGGINGFACE_TOKEN` pode estar expirado na hora do teste. Caso a página emita um alerta de token expirado, é recomendado seguir o próximo passo `Gerando um token HuggingFace`)
 
 ```env
 POSTGRES_USER=postgres
@@ -86,26 +109,68 @@ HUGGINGFACE_TOKEN=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
 VITE_API_URL=http://localhost:3000
 ```
 
+# Gerando uma API token da HuggingFace AI
+
+1. Acesso o site `https://huggingface.co/`
+2. Crie uma conta ou faça login em uma conta existente
+3. Após o login, acesse a seção de Tokens em: `https://huggingface.co/settings/tokens`
+4. Clique em `Create new Token`
+5. Dê o nome desejado e selecione `Read-only`
+6. Gerencie as permissões e marque:
+```
+ - [x] Make calls to Inference Providers
+ - [x] Make calls to your Inference Endpoints
+```
+7. Confirme a criação e copie a chave gerada
+8. Atribua a nova chave ao campo `HUGGINGFACE_TOKEN=` no .env do Backend
+
 # Como executar
 
-### Na root do projeto e com o Docker Desktop LTS aberto, rode:
+1. Instalação do node_modules 
+ - Acesse pelo terminal `cd /backend/`
+ - Execute: `npm install`
+ - faça o mesmo para o Frontend
+
+2. Com os `.env` configurados corretamente, faça:
+
+#### Na root do projeto e com o Docker Desktop LTS aberto, rode:
+
 ```bash
 docker compose up --build  
 ```
 
+A partir disso, as aplicações já estarão rodando nas portas:
+
+Backend:
+`http://localhost:3000/`
+
+Frontend:
+`http://localhost:5173/`
+
 # Aprendizados / Facilidades
-1. Durante o desenvolvimento do Frontend em React, notei familiaridade com frameworks que trabalhei no passado
+1. Durante o desenvolvimento do Frontend em React, notei familiaridade com frameworks que trabalhei no passado.
 Além disso, é muito interessante a forma como o React facilita a componentização das views.
 
-2. Apliquei para esse projeto a estrutura orientada à Features, onde se dá destaque para as features a serem desenvolvidas.
-Pelo projeto ser pequeno em features
+2. Vi grande importância na utilização da biblioteca Yup, já que padroniza e deixa explicito em código quais campos os formulários devem possuir, suas tipagens e possíveis erros. Como comparação de campos em `Repetir senha`, tipagem errada durante o input e mínimo de caracteres.
 
-3. Nest.js possui uma certa semelhança com a criação e definição de rotas e lógica comparado ao Java Springboot.
+3. Apliquei para esse projeto a estrutura orientada à Features, onde se dá destaque para as Features existentes.
+Pelo projeto ser pequeno em features, não trouxe complexidade à estrutura visual dos arquivos e facilitou a organização do código e a manutenção da aplicação conforme novas funcionalidades foram sendo adicionadas.
+
+4. Nestjs e a biblioteca TypeORM possui uma certa semelhança com a criação da API e definição de rotas e lógica comparado ao Java Springboot.
 
 # Problemas e Bugs
-1. Na instalação do Docker, encontrei muitos problemas de permisão ao acesso de pastas internas do computador. Utilizando o auxílio de IA para resolver, a instalação e setup do Docker foi bem-sucedido
+1. Na instalação do Docker, encontrei muitos problemas de permisão ao acesso de pastas internas do computador. Utilizando o auxílio de IA para resolver, a instalação e setup do Docker foi bem-sucedido.
 
-2. Jest não veio configurado corretamente. Arquivos de teste automaticamente gerados pelo Nest.js quebraram. Precisei criar "tsconfig.specs.json" na root e adicionar tipos de compilação no "tsconfig.json"
+2. Jest não veio configurado corretamente. Arquivos de teste automaticamente gerados pelo Nest.js quebraram. Precisei criar "tsconfig.specs.json" na root e adicionar tipos de compilação no "tsconfig.json".
 
-3. A listagem de tickets estava me retornando e-mail e senha encriptografada do usuário logar. Por problemas de privacidade, decidi remover esses dados do retorno alterando a DTO de tickets-response
+3. A listagem de tickets estava me retornando e-mail e senha encriptografada do usuário logar. Por problemas de privacidade, decidi remover esses dados do retorno alterando a DTO de tickets-response.
 
+# Melhorias futuras
+
+O que poderia ser implementado
+
+- Listagem de tickets no padrão Kanban, sendo filtrado por status e dividido por colunas por suas prioridades
+- Refresh Token para autenticação;
+- Upload de anexos;
+- Deploy da aplicação;
+- Testes E2E;
