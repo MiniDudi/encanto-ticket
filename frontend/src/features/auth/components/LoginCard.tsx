@@ -3,6 +3,7 @@ import { loginSchema } from "../schemas/LoginSchema";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MainButton } from "../../../shared/components/MainButton";
 import { MainInput } from "../../../shared/components/inputs/MainInput";
+import logo from "../../../assets/encanto-telecom.png";
 import { login } from "../api/auth_api";
 import axios from "axios";
 
@@ -46,6 +47,15 @@ export function LoginCard() {
 
     return (
         <div className="w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
+
+            <div className="mb-4 flex justify-center">
+                <img
+                    src={logo}
+                    alt="Encanto Telecom"
+                    className="h-20 w-auto"
+                />
+            </div>
+
             <h1 className="mb-2 text-center text-3xl font-bold">
                 Login
             </h1>

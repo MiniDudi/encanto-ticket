@@ -8,6 +8,7 @@ import { useTickets } from "../hooks/useTickets";
 import { ClipLoader } from "react-spinners";
 import { TicketPriority, TicketStatus } from "../types/ticket";
 import { MainButton } from "../../../shared/components/MainButton";
+import logo from "../../../assets/encanto-telecom.png";
 
 export function TicketListPage() {
     const navigate = useNavigate();
@@ -54,10 +55,16 @@ export function TicketListPage() {
                 </h1>
 
                 <div>
-
-                    <h2 className="mb-5 text-start text-2xl font-bold">
-                        Olá, {userName}!
-                    </h2>
+                    <div className="flex items-center gap-3 mb-5">
+                        <h2 className=" text-start text-2xl font-bold">
+                            Olá, {userName}!
+                        </h2>
+                        <img
+                            src={logo}
+                            alt="Encanto Telecom"
+                            className="h-10 w-auto mt-2"
+                        />
+                    </div>
 
                     <div className="flex items-center gap-3 w-100">
                         <MainButton onClick={goToNewTicket} buttonText="Criar Novo Ticket" buttonColor="bg-blue-600" hoverColor="hover:bg-blue-700" prefixIcon={<FaPlus />} type="button" />
