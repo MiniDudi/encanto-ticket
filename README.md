@@ -16,21 +16,21 @@ Eduardo Henrique Natividade Pinese
 - [x] React Router (^7.18.1) - Navegação entre páginas da aplicação.
 
 ### Backend
-- [x] TypeScript
-- [x] NestJS
-- [x] PostgreSQL - Banco de dados relacional da aplicação.
-- [x] TypeORM - Mapeamento das entidades e comunicação com o banco.
-- [x] class-validator - Validação dos DTOs de entrada e retorno.
-- [x] JWT - Autenticação e autorização baseada em tokens. Token definido após o login e segurança das rotas de Tickets com JwtGuard.
-- [x] bcrypt - Criptografia e proteção das senhas. Implementado no módulo de Auth.
-- [x] Jest - Testes unitários dos serviços backend. Auth / Tickets.
+- [x] TypeScript (^5.7.3)
+- [x] NestJS (^11.0.1)
+- [x] PostgreSQL (17) - Banco de dados relacional da aplicação.
+- [x] TypeORM (^0.3.27) - Mapeamento das entidades e comunicação com o banco.
+- [x] class-validator (^0.15.1) - Validação dos DTOs de entrada e retorno.
+- [x] JWT (^11.0.2) - Autenticação e autorização baseada em tokens. Token definido após o login e segurança das rotas de Tickets com JwtGuard.
+- [x] bcrypt (^6.0.0) - Criptografia e proteção das senhas. Implementado no módulo de Auth.
+- [x] Jest (^30.0.0) - Testes unitários dos serviços backend. Auth / Tickets.
 
 ### Infra
-- [x] Docker - Criação de containers para padronizar o ambiente de desenvolvimento.
-- [x] docker-compose - Gerenciamento dos serviços e configuração do banco PostgreSQL.
+- [x] Docker (4.84.0) - Criação de containers para padronizar o ambiente de desenvolvimento.
+- [x] docker-compose (3.8) - Gerenciamento dos serviços e configuração do banco PostgreSQL.
 
 ### Extra
-- [x] IA HuggingFace - Integração com a API gratuita da HuggingFace para sugerir soluções automáticas aos usuários com base na descrição do ticket.
+- [x] IA HuggingFace (^4.13.23) - Integração com a API gratuita da HuggingFace para sugerir soluções automáticas aos usuários com base na descrição do ticket.
 
 # Funcionalidades
 
