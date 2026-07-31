@@ -1,8 +1,8 @@
 # Encanto Telecom Ticket
-Projeto prático para a etapa do processo seletivo da Encanto Telecom.
+Projeto prático para a etapa do processo seletivo da Encanto Telecom.   
+O projeto e documentação foram desenvolvidos em um período de 3 dias e deverá ser entregue dia 31/07 às 18:00
 
-# Desenvolvedor
-Eduardo Henrique Natividade Pinese
+### Desenvolvedor - Eduardo Henrique Natividade Pinese
 
 # Lista de Stacks obrigatórias
 
@@ -67,21 +67,32 @@ flowchart TD
 
 # Estratégias
 
+#### Frontend
 - O frontend utiliza uma arquitetura **Feature-Based**, onde cada funcionalidade possui sua própria estrutura de páginas, componentes, schemas e camada de comunicação com a API. As requisições são realizadas via Axios, utilizando autenticação JWT para acesso às rotas protegidas.
 
+- A componentização de itens foi colocado em evidência, a fim de evitar repetição de código e melhor manipulação dos componentes criados. Na pasta `src/shared`, há Utils e Components para a reutilização global no Frontend.
+
+#### Beckend
 - No backend, os **Controllers** recebem as requisições, os **Services** aplicam as regras de negócio e o **TypeORM** realiza a persistência dos dados no PostgreSQL.
 
+- Na construção do Backend, dividi as responsabilidades de Auth e User em dois módulos separados. Sendo que o módulo de Auth importa a service de User para implementação da funcionalidade de Register. O módulo de User possui o CRUD estruturado, mas temporariamente sem uma Controller própria para a API.
+
+#### I.A.
 - A funcionalidade de **Sugestão de Resposta com IA** segue o mesmo fluxo de arquitetura. O frontend envia apenas a descrição do ticket ao backend, que é responsável por consumir a API da Hugging Face. Dessa forma, o token de acesso permanece protegido no servidor e não é exposto ao cliente. Após receber a resposta da IA, o backend retorna a sugestão ao frontend para exibição ao usuário.
 
+- Foi utilizado a Inteligência Artificial ChatGPT da OpenAI para Início do projeto, desenvolvimento de ideias, sanar dúvidas, correção de bugs e falhas durante o processo de trabalho. 
+
+#### Infra
 - Utilizei **Docker** para containerizar o backend, frontend e banco de dados PostgreSQL. Dessa forma, toda a aplicação pode ser iniciada com um único comando (docker compose up --build), facilitando a configuração do ambiente.
 
+#### DevOps
 - Implementei **Github Actions** para validação do código em ambas frentes do projeto. Para cada `push` ou `Merge Request` realizado nas branches develop e main é executado um workflow que instala as dependências do projeto e roda o ESLint, garantindo padronização da qualidade e evitando que alterações com problemas sejam integradas às branches principais.
 
 # Variáveis de ambiente
 
 Crie um `.env` na root da pasta Backend e Frontend e adicione o seguinte conteúdo:
 
-## Backend (.env)
+### Backend (.env)
 
 (O `HUGGINGFACE_TOKEN` pode estar expirado na hora do teste. Caso a página emita um alerta de token expirado, é recomendado seguir o próximo passo `Gerando um token HuggingFace`)
 
@@ -103,7 +114,7 @@ PORT=3000
 HUGGINGFACE_TOKEN=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
 ```
 
-## Frontend (.env)
+### Frontend (.env)
 
 ```env
 VITE_API_URL=http://localhost:3000
@@ -127,15 +138,15 @@ VITE_API_URL=http://localhost:3000
 # Como executar
 
 1. Clone o projeto
- - Escolha a pasta em que será instalado o projeto
- - Abra o CMD e execute: `git clone https://github.com/MiniDudi/encanto-ticket.git`
- - Entre na branch develop com: `git checkout develop`
- - Puxe as alterações recentes: `git pull`
+    - Escolha a pasta em que será instalado o projeto
+    - Abra o CMD e execute: `git clone https://github.com/MiniDudi/encanto-ticket.git`
+    - Entre na branch develop com: `git checkout develop`
+    - Puxe as alterações recentes: `git pull`
 
 2. Instalação do node_modules 
- - Acesse pelo terminal `cd /backend/`
- - Execute: `npm install`
- - Faça o mesmo para o Frontend
+    - Acesse pelo terminal `cd /backend/`
+    - Execute: `npm install`
+    - Faça o mesmo para o Frontend
 
 3. Com os `.env` configurados corretamente, faça:
 
@@ -145,7 +156,7 @@ VITE_API_URL=http://localhost:3000
 docker compose up --build  
 ```
 
-A partir disso, as aplicações já estarão rodando nas portas:
+A partir disso, as aplicações já estarão rodando nas URLs:
 
 Backend:
 `http://localhost:3000/`
