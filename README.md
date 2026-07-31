@@ -88,37 +88,7 @@ flowchart TD
 #### DevOps
 - Implementei **Github Actions** para validação do código em ambas frentes do projeto. Para cada `push` ou `Merge Request` realizado nas branches develop e main é executado um workflow que instala as dependências do projeto e roda o ESLint, garantindo padronização da qualidade e evitando que alterações com problemas sejam integradas às branches principais.
 
-# Variáveis de ambiente
 
-Crie um `.env` na root da pasta Backend e Frontend e adicione o seguinte conteúdo:
-
-### Backend (.env)
-
-(O `HUGGINGFACE_TOKEN` pode estar expirado na hora do teste. Caso a página emita um alerta de token expirado, é recomendado seguir o próximo passo `Gerando um token HuggingFace`)
-
-```env
-POSTGRES_USER=postgres
-POSTGRES_PASSWORD=postgres
-POSTGRES_DB=helpdesk
-
-DATABASE_HOST=postgres
-DATABASE_PORT=5432
-DATABASE_USER=postgres
-DATABASE_PASSWORD=postgres
-DATABASE_NAME=helpdesk
-
-JWT_SECRET=4f4db2c735d2b3f0a2d6c4c1aee1d8ef7b7d90d34d9aafee8a2cdb6d8c8f93b2f7b92b4b6e6a8b8f3f8c9d2c6d7a9b3e
-JWT_EXPIRES_IN=1d
-PORT=3000
-
-HUGGINGFACE_TOKEN=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
-```
-
-### Frontend (.env)
-
-```env
-VITE_API_URL=http://localhost:3000
-```
 
 # Gerando uma API token da HuggingFace AI
 
@@ -148,9 +118,39 @@ VITE_API_URL=http://localhost:3000
     - Execute: `npm install`
     - Faça o mesmo para o Frontend
 
-3. Com os `.env` configurados corretamente, faça:
+3. Adicione os `.env`:
 
-#### Na root do projeto e com o Docker Desktop LTS aberto, rode:
+    - Crie um `.env` na root da pasta Backend e Frontend e adicione o seguinte conteúdo:
+
+### Backend (.env)
+
+(O `HUGGINGFACE_TOKEN` pode estar expirado na hora do teste. Caso a página emita um alerta de token expirado, é recomendado seguir o próximo passo `Gerando um token HuggingFace`)
+
+```env
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=helpdesk
+
+DATABASE_HOST=postgres
+DATABASE_PORT=5432
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_NAME=helpdesk
+
+JWT_SECRET=4f4db2c735d2b3f0a2d6c4c1aee1d8ef7b7d90d34d9aafee8a2cdb6d8c8f93b2f7b92b4b6e6a8b8f3f8c9d2c6d7a9b3e
+JWT_EXPIRES_IN=1d
+PORT=3000
+
+HUGGINGFACE_TOKEN=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
+```
+
+### Frontend (.env)
+
+```env
+VITE_API_URL=http://localhost:3000
+```
+
+4. Na root do projeto e com o Docker Desktop LTS aberto, rode:
 
 ```bash
 docker compose up --build  
