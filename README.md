@@ -113,12 +113,7 @@ flowchart TD
     - Entre na branch develop com: `git checkout develop`
     - Puxe as alterações recentes: `git pull`
 
-2. Instalação do node_modules 
-    - Acesse pelo terminal `cd /backend/`
-    - Execute: `npm install`
-    - Faça o mesmo para o Frontend
-
-3. Adicione os `.env`:
+2. Adicione os `.env`:
 
     - Crie um `.env` na root da pasta Backend e Frontend e adicione o seguinte conteúdo:
 
@@ -150,7 +145,7 @@ HUGGINGFACE_TOKEN=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
 VITE_API_URL=http://localhost:3000
 ```
 
-4. Na root do projeto e com o Docker Desktop LTS aberto, rode:
+3. Na root do projeto e com o Docker Desktop LTS aberto, rode:
 
 ```bash
 docker compose up --build  
