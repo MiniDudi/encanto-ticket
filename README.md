@@ -181,9 +181,12 @@ Pelo projeto ser pequeno em features, não trouxe complexidade à estrutura visu
 
 O que poderia ser implementado:
 
-- Implementação de SLA na feature de tickets
-- Listagem de tickets no padrão Kanban, sendo filtrado por status e dividido por colunas por suas prioridades
+- Implementação de SLA na feature de tickets;
+- Listagem de tickets no padrão Kanban, sendo filtrado por status e dividido por colunas por suas prioridades;
+- Feature de Roles (admin, user) para leitura de todos os tickets do sistema e alteração de status;
+- Melhor tratamento de erros Front e Backend;
+- Upload de anexos na criação de Tickets;
 - Refresh Token para autenticação;
-- Upload de anexos;
+- Aprimorar o UX/UI do sistema;
 - Deploy da aplicação;
 - Testes E2E com Playwright;
