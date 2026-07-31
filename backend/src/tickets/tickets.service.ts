@@ -9,6 +9,7 @@ import { Ticket } from './entities/ticket.entity';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { User } from '../users/entities/user.entity';
+import { TicketResponseDto } from './dto/ticket-response.dto';
 
 @Injectable()
 export class TicketsService {
@@ -26,49 +27,29 @@ export class TicketsService {
         return this.ticketsRepository.save(ticket);
     }
 
-    async findAll(): Promise<Ticket[]> {
-        return this.ticketsRepository.find({
+    async findAll(): Promise<TicketResponseDto[]> {
+        const tickets = await this.ticketsRepository.find({
             relations: {
                 user: true,
             },
-            select: {
-                id: true,
-                title: true,
-                description: true,
-                status: true,
-                priority: true,
-                user: {
-                    id: true,
-                    name: true,
-                },
-            },
         });
+
+        return tickets.map((ticket) => this.toResponseDto(ticket));
     }
 
-    async findById(id: number): Promise<Ticket> {
+    async findById(id: number): Promise<TicketResponseDto> {
         const ticket = await this.ticketsRepository.findOne({
             where: { id },
             relations: {
                 user: true,
             },
-            select: {
-                id: true,
-                title: true,
-                description: true,
-                status: true,
-                priority: true,
-                user: {
-                    id: true,
-                    name: true,
-                },
-            },
         });
 
         if (!ticket) {
-            throw new NotFoundException('Ticket não encontrado.');
+            throw new NotFoundException("Ticket não encontrado.");
         }
 
-        return ticket;
+        return this.toResponseDto(ticket);
     }
 
     async update(id: number, dto: UpdateTicketDto): Promise<Ticket> {
@@ -94,5 +75,19 @@ export class TicketsService {
         if (result.affected === 0) {
             throw new NotFoundException('Ticket não encontrado.');
         }
+    }
+
+    private toResponseDto(ticket: Ticket): TicketResponseDto {
+        return {
+            id: ticket.id,
+            title: ticket.title,
+            description: ticket.description,
+            status: ticket.status,
+            priority: ticket.priority,
+            user: {
+                id: ticket.user.id,
+                name: ticket.user.name,
+            },
+        };
     }
 }

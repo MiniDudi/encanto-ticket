@@ -29,8 +29,6 @@ export function LoginCard() {
                     JSON.stringify(response.name)
                 );
 
-                console.log(response.name);
-
                 navigate("/tickets", { state: { formData: values } });
             } catch (error) {
                 if (axios.isAxiosError(error)) {
