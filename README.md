@@ -186,6 +186,7 @@ Pelo projeto ser pequeno em features, não trouxe complexidade à estrutura visu
 
 O que poderia ser implementado:
 
+- Implementação de SLA na feature de tickets
 - Listagem de tickets no padrão Kanban, sendo filtrado por status e dividido por colunas por suas prioridades
 - Refresh Token para autenticação;
 - Upload de anexos;
