@@ -7,13 +7,13 @@ Eduardo Henrique Natividade Pinese
 # Lista de Stacks obrigatórias
 
 ### Frontend
-- [x] TypeScript
-- [x] React 18 (hooks)
-- [x] Tailwind CSS
-- [x] Formik - Gerenciamento e controle de formulários. Login / Registro / New Ticket / Edit Ticket
-- [x] Yup - Validação de dados dos formulários. 
-- [x] Axios - Consumo e integração com APIs REST desenvolvido com Nestjs.
-- [x] React Router - Navegação entre páginas da aplicação.
+- [x] TypeScript (~6.0.2)
+- [x] React 18 (hooks) (^18.3.1)
+- [x] Tailwind CSS (^4.3.3)
+- [x] Formik (^2.4.9) - Gerenciamento e controle de formulários. Login / Registro / New Ticket / Edit Ticket
+- [x] Yup (^1.7.1) - Validação de dados dos formulários. 
+- [x] Axios (^1.18.1) - Consumo e integração com APIs REST desenvolvido com Nestjs.
+- [x] React Router (^7.18.1) - Navegação entre páginas da aplicação.
 
 ### Backend
 - [x] TypeScript
@@ -21,9 +21,9 @@ Eduardo Henrique Natividade Pinese
 - [x] PostgreSQL - Banco de dados relacional da aplicação.
 - [x] TypeORM - Mapeamento das entidades e comunicação com o banco.
 - [x] class-validator - Validação dos DTOs de entrada e retorno.
-- [x] JWT - Autenticação e autorização baseada em tokens. Token definido após o login e segurança das rotas de Tickets com JwtGuard
-- [x] bcrypt - Criptografia e proteção das senhas. Implementado no módulo de Auth
-- [x] Jest - Testes unitários dos serviços backend. Auth / Tickets
+- [x] JWT - Autenticação e autorização baseada em tokens. Token definido após o login e segurança das rotas de Tickets com JwtGuard.
+- [x] bcrypt - Criptografia e proteção das senhas. Implementado no módulo de Auth.
+- [x] Jest - Testes unitários dos serviços backend. Auth / Tickets.
 
 ### Infra
 - [x] Docker - Criação de containers para padronizar o ambiente de desenvolvimento.
@@ -111,7 +111,7 @@ VITE_API_URL=http://localhost:3000
 
 # Gerando uma API token da HuggingFace AI
 
-1. Acesso o site `https://huggingface.co/`
+1. Acesse o site `https://huggingface.co/`
 2. Crie uma conta ou faça login em uma conta existente
 3. Após o login, acesse a seção de Tokens em: `https://huggingface.co/settings/tokens`
 4. Clique em `Create new Token`
@@ -173,10 +173,10 @@ Pelo projeto ser pequeno em features, não trouxe complexidade à estrutura visu
 
 # Melhorias futuras
 
-O que poderia ser implementado
+O que poderia ser implementado:
 
 - Listagem de tickets no padrão Kanban, sendo filtrado por status e dividido por colunas por suas prioridades
 - Refresh Token para autenticação;
 - Upload de anexos;
 - Deploy da aplicação;
-- Testes E2E;
+- Testes E2E com Playwright;
