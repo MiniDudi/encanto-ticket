@@ -126,12 +126,18 @@ VITE_API_URL=http://localhost:3000
 
 # Como executar
 
-1. Instalação do node_modules 
+1. Clone o projeto
+ - Escolha a pasta em que será instalado o projeto
+ - Abra o CMD e execute: `git clone https://github.com/MiniDudi/encanto-ticket.git`
+ - Entre na branch develop com: `git checkout develop`
+ - Puxe as alterações recentes: `git pull`
+
+2. Instalação do node_modules 
  - Acesse pelo terminal `cd /backend/`
  - Execute: `npm install`
- - faça o mesmo para o Frontend
+ - Faça o mesmo para o Frontend
 
-2. Com os `.env` configurados corretamente, faça:
+3. Com os `.env` configurados corretamente, faça:
 
 #### Na root do projeto e com o Docker Desktop LTS aberto, rode:
 
