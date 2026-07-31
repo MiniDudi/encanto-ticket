@@ -72,12 +72,12 @@ flowchart TD
 
 - A componentização de itens foi colocado em evidência, a fim de evitar repetição de código e melhor manipulação dos componentes criados. Na pasta `src/shared`, há Utils e Components para a reutilização global no Frontend.
 
-#### Beckend
+#### Backend
 - No backend, os **Controllers** recebem as requisições, os **Services** aplicam as regras de negócio e o **TypeORM** realiza a persistência dos dados no PostgreSQL.
 
 - Na construção do Backend, dividi as responsabilidades de Auth e User em dois módulos separados. Sendo que o módulo de Auth importa a service de User para implementação da funcionalidade de Register. O módulo de User possui o CRUD estruturado, mas temporariamente sem uma Controller própria para a API.
 
-#### I.A.
+#### IA
 - A funcionalidade de **Sugestão de Resposta com IA** segue o mesmo fluxo de arquitetura. O frontend envia apenas a descrição do ticket ao backend, que é responsável por consumir a API da Hugging Face. Dessa forma, o token de acesso permanece protegido no servidor e não é exposto ao cliente. Após receber a resposta da IA, o backend retorna a sugestão ao frontend para exibição ao usuário.
 
 - Foi utilizado a Inteligência Artificial ChatGPT da OpenAI para Início do projeto, desenvolvimento de ideias, sanar dúvidas, correção de bugs e falhas durante o processo de trabalho. 
