@@ -83,6 +83,13 @@ describe('TicketsService', () => {
       {
         id: 1,
         title: 'Teste',
+        description: 'Descrição',
+        status: 'OPEN',
+        priority: 'HIGH',
+        user: {
+          id: 1,
+          name: 'Eduardo',
+        },
       },
     ];
 
@@ -98,6 +105,13 @@ describe('TicketsService', () => {
     const ticket = {
       id: 1,
       title: 'Teste',
+      description: 'Descrição',
+      status: 'OPEN',
+      priority: 'HIGH',
+      user: {
+        id: 1,
+        name: 'Eduardo',
+      },
     };
 
     mockRepository.findOne.mockResolvedValue(ticket);

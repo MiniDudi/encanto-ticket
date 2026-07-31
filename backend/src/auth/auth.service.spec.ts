@@ -108,6 +108,7 @@ describe('AuthService', () => {
 
     expect(result).toEqual({
       access_token: 'token-jwt',
+      name: 'Eduardo',
     });
   });
 
